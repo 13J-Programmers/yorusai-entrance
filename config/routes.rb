@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'application#index'
+
   resources :admins, only: [:index, :edit, :show, :update]
   get    'login'  => 'sessions#new'
   post   'login'  => 'sessions#create'

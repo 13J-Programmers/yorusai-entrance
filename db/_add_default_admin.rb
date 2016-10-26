@@ -1,1 +1,1 @@
-Admin.create(name: "admin", email: "foo@example.com", password: "foobar", password_confirmation: "foobar")
+Admin.create(name: "admin", email: "admin@admin.com", password: "foobar", password_confirmation: "foobar")
