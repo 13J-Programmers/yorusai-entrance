@@ -1,24 +1,16 @@
-# README
+# Yorusai-Entrance
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+文化祭夜の部の入場者を記録、抽選の無駄を省く
 
-Things you may want to cover:
+## Devices and Environment
 
-* Ruby version
+- Barcode Reader(as external keyboard)
+- Server
+- rails5
 
-* System dependencies
+## Implementation Strategy
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- バーコードによる学籍番号の入力とあらかじめ用意された全員分のリストを照合
+- 合致するものがあれば入場として記録
+- バーコードリーダーとwebシステムの間はajaxでつなぐ
+- 入場者のみを抽選の対象とし、時間のロスを未然に防ぐ
