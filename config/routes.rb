@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :admins, only: [:index, :edit, :show, :update]
+
   get 'students/index' => 'students#index', :as => 'students_index'
 
   get 'students/scan' => 'students#scan'
