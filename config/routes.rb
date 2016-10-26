@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'students/index' => 'students#index'
+  get 'students/index' => 'students#index', :as => 'students_index'
 
   get 'students/scan' => 'students#scan'
 
