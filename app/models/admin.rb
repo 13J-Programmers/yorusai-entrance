@@ -4,7 +4,9 @@ class Admin < ApplicationRecord
   end
 
   # name
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true,
+    length: { maximum: 50 },
+    uniqueness: true
 
   # email
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -15,7 +17,9 @@ class Admin < ApplicationRecord
 
   # password, password_confirmation
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :password, presence: true,
+    length: { minimum: 6 },
+    allow_nil: true
 
   # --- class methods ---
 
