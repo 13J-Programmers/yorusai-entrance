@@ -1,4 +1,7 @@
 class AdminsController < ApplicationController
+  before_action :logged_in_admin, only: [:index, :edit, :update, :destroy]
+  before_action :correct_admin,   only: [:edit, :update]
+
   def index
     @admins = Admin.all
   end
@@ -24,5 +27,13 @@ class AdminsController < ApplicationController
   private
     def admin_params
       params.require(:admin).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    # --- before filter ---
+
+    # Confirm a correct user
+    def correct_admin
+      @admin = Admin.find(params[:id])
+      redirect_to(root_url) unless current_admin?(@admin)
     end
 end
