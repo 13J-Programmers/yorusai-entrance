@@ -1,0 +1,34 @@
+var words = '';
+var scanning = false;
+$(document).keypress(function(e) {
+  if (e.charCode == 13) {
+    if (scanning) {
+      console.log(words);
+      words = '';
+      scanning = false;
+    } else {
+      scanning = true;
+    }
+    return false;
+  }
+  if (scanning) {
+    var key = String.fromCharCode(e.charCode);
+    words = words + key;
+  }
+}
+
+
+$.ajax({
+  url: "students/change_session_year",
+  type: "GET",
+  data: {
+    student_id: words,
+          },
+  dataType: "html",
+  success: function(data) {
+      alert("success");
+  },
+  error: function(data) {
+      alert("errror");
+  }
+});
