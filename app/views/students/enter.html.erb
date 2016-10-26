@@ -12,7 +12,7 @@ $(document).keypress(function(e) {
   if (e.charCode == 13) {
     if (scanning) {
       console.log(words);
-      $('#stuid').val(words).change()
+      $('#stuid').html(words).change();
       words = '';
       scanning = false;
     } else {
