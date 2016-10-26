@@ -4,6 +4,8 @@ class StudentsController < ApplicationController
   end
 
   def scan
+    # TODO
+    # validate student
     @student = Student.find_by(student_id: params[:student_id])
     @student.attended = "true"
     @student.save
