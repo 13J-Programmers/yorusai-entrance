@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  root 'application#index'
+
+  resources :admins, only: [:index, :edit, :show, :update]
+  get    'login'  => 'sessions#new'
+  post   'login'  => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
+
   get 'students/index' => 'students#index', :as => 'students_index'
 
   get 'students/scan' => 'students#scan'

@@ -9,6 +9,18 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%# header %>
+    <%= render 'layouts/header' %>
+
+    <div class="container">
+      <%# flash %>
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+
+      <%= yield %>
+
+    </div>
+
   </body>
 </html>
