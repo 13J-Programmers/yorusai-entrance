@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   def index
   end
 
+  def usage
+  end
+
   private
     # --- before filter ---
 
