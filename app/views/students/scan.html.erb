@@ -3,6 +3,18 @@
 
 <p id="stuid">*****</p>
 
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_tag('/students/scan', method: :post) do %>
+      <div class="form-group">
+        <%= label :student, :student_id %>
+        <%= text_field :student, :student_id, class: "form-control" %>
+      </div>
+      <%= submit_tag "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
 <%= link_to '学生一覧', students_path %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -28,22 +40,7 @@ $(document).keypress(function(e) {
   }
 });
 
-// $('#stuid').change(function(){
-//   $.ajax({
-//     url: "/students/scan",
-//     type: "POST",
-//     data: {
-//       student: {
-//         student_id: words,
-//       }
-//     },
-//     dataType: "html",
-//     success: function(data) {
-//         alert("success");
-//     },
-//     error: function(data) {
-//         alert("errror");
-//     }
-//   });
-// });
+$(function () {
+  document.getElementById('student_student_id').focus();
+});
 </script>

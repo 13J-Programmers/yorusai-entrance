@@ -10,10 +10,14 @@ class StudentsController < ApplicationController
   end
 
   def update
-    p params
     if @student = Student.find_by(student_id: params[:student][:student_id]) then
       @student.attended = "true"
       @student.save
+      flash[:success] = "Successfully updated"
+      redirect_to students_scan_path
+    else
+      flash[:danger] = "Failed to update"
+      redirect_to students_scan_path
     end
   end
 
