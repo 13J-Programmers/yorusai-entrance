@@ -1,4 +1,6 @@
 class StudentsController < ApplicationController
+  before_action :logged_in_admin, only: [:index, :scan, :update]
+
   def index
     @students = Student.all
   end
