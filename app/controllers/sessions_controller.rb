@@ -3,12 +3,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    admin = Admin.find_by(name: params[:session][:name].downcase)
+    admin = Admin.find_by(name: params[:session][:name])
     if admin && admin.authenticate(params[:session][:password])
       # set settion and redirect to admin's page
       log_in admin
-      # redirect_to admin
-      # redirect_to root_path
       redirect_to root_path, flash: { success: 'ログインしました' }
     else
       # error message

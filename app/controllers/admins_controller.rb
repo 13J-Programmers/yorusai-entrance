@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  before_action :logged_in_admin, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_admin, only: [:index, :show, :edit, :update, :destroy]
   before_action :correct_admin,   only: [:edit, :update]
 
   def index
