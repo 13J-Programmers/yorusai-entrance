@@ -13,3 +13,36 @@
  *= require_tree .
  *= require_self
  */
+
+@import url(https://fonts.googleapis.com/css?family=Antic+Slab|Cutive);
+
+#title {
+  margin-top: 8em;
+  font-family: "Cutive"
+}
+
+.title-color {
+  /*color: #4EBE9A;*/
+}
+
+.color-red {
+  color: #DA3466;
+}
+
+/*.like-pre {
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px 5px;
+  border-radius: 3px;
+  border: 1px solid #CCC;
+  background-color: #DDD; 
+}*/
+
+pre {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.huge {
+  font-size: 60px;
+}
