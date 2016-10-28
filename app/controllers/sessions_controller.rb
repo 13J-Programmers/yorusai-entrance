@@ -7,7 +7,9 @@ class SessionsController < ApplicationController
     if admin && admin.authenticate(params[:session][:password])
       # set settion and redirect to admin's page
       log_in admin
-      redirect_to admin
+      # redirect_to admin
+      # redirect_to root_path
+      redirect_to root_path, flash: { success: 'ログインしました' }
     else
       # error message
       flash.now[:danger] = "invalid name/password combination"
