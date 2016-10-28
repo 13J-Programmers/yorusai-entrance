@@ -1,0 +1,47 @@
+<h1>学生証をスキャン</h1>
+<p>スキャナーに裏面をかざしてください</p>
+
+<p id="stuid">*****</p>
+
+<%= link_to '学生一覧', students_path %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+var words = '';
+var scanning = false;
+$(document).keypress(function(e) {
+  if (e.charCode == 13) {
+    if (scanning) {
+      console.log(words);
+      $('#stuid').html(words).change();
+      words = '';
+      scanning = false;
+    } else {
+      scanning = true;
+    }
+    return false;
+  }
+  if (scanning) {
+    var key = String.fromCharCode(e.charCode);
+    words = words + key;
+  }
+});
+
+$('#stuid').change(function(){
+  $.ajax({
+    url: "/students/scan",
+    type: "POST",
+    data: {
+      student_id: words,
+    },
+    dataType: "html",
+    success: function(data) {
+        alert("success");
+    },
+    error: function(data) {
+        alert("errror");
+    }
+  });
+});
+</script>

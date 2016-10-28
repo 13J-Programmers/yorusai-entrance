@@ -8,9 +8,13 @@ class StudentsController < ApplicationController
       @student.attended = "true"
       @student.save
     end
-    redirect_to '/students'
   end
 
-  def enter
+  def update
   end
+
+  private
+    def student_params
+      params.require(:student).permit(:student_id)
+    end
 end

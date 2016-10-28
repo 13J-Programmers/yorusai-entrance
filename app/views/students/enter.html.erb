@@ -31,7 +31,7 @@ $(document).keypress(function(e) {
 $('#stuid').change(function(){
   $.ajax({
     url: "/students/scan",
-    type: "GET",
+    type: "POST",
     data: {
       student_id: words,
             },

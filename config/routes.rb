@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
-  get 'students/index' => 'students#index', :as => 'students_index'
-  get 'students/scan' => 'students#scan', :as => 'scan'
-  get 'students' => 'students#enter'
+  resources :students, only: [:index, :scan, :update]
+  get   'students/' => 'students#index'
+  get   'students/scan'  => 'students#scan'
+  post  'students/scan'  => 'students#update'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
