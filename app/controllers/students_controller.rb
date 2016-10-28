@@ -25,7 +25,7 @@ class StudentsController < ApplicationController
       flash[:success] = "登録しました！夜祭にようこそ"
       redirect_to students_scan_path
     else
-      flash[:danger] = "学籍番号が見つかりません... お近くの役員に問い合わせてください"
+      flash[:danger] = "学籍番号が見つかりません お近くの役員に問い合わせてください"
       redirect_to students_scan_path
     end
   end
