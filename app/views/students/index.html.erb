@@ -6,12 +6,21 @@
   # classify
   if @students.first.grade.between?(1, 2)
     group = @students.group_by(&:class_id)
-    students_keys = group.keys.map { |key| "#{key}組" }
-    students      = group.values
+
+    ordered_group = ActiveSupport::OrderedHash.new
+    (1..5).each { |dept| ordered_group[dept] = group[dept] }
+
+    students_keys = ordered_group.keys.map { |key| "#{key}組" }
+    students      = ordered_group.values
+
   elsif @students.first.grade.between?(3, 5)
     group = @students.group_by(&:dept)
-    students_keys = group.keys.map { |key| "#{key}科" }
-    students      = group.values
+
+    ordered_group = ActiveSupport::OrderedHash.new
+    %w(M E S J C).each { |dept| ordered_group[dept] = group[dept] }
+
+    students_keys = ordered_group.keys.map { |key| "#{key}科" }
+    students      = ordered_group.values
   end
 
   # fill with nil to equalize each array len
