@@ -44,7 +44,12 @@
 //   }
 // });
 
-
+$(function() {
+  setTimeout(function() {
+    $('.alert').animate( { height: 'toggle', opacity: 'toggle' } );
+    // $('.alert').hide();
+  }, 3500);
+});
 
 $(function () {
   document.getElementById('student_student_id').focus();

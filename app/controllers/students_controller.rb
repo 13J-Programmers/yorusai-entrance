@@ -22,10 +22,11 @@ class StudentsController < ApplicationController
     if @student = Student.find_by(student_id: params[:student][:student_id]) then
       @student.attended = "true"
       @student.save
-      flash[:success] = "登録しました！夜祭にようこそ"
+      # flash[:success] = "No.#{@student.student_id}を登録しました！夜祭にようこそ！"
+      flash[:success] = "登録しました！#{@student.student_id}さん、夜祭にようこそ！"
       redirect_to students_scan_path
     else
-      flash[:danger] = "学籍番号が見つかりません... お近くの役員に問い合わせてください"
+      flash[:danger] = "学籍番号\"#{params[:student][:student_id]}\"が見つかりません。 お近くの役員に問い合わせてください"
       redirect_to students_scan_path
     end
   end
