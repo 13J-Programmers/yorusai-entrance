@@ -36,6 +36,16 @@ body {
   color: #DA3466;
 }
 
+.section-title {
+  margin-left: 2em;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+
+.section-text {
+  margin-left: 5.5em;
+}
+
 /*.like-pre {
   width: 80%;
   margin: 0 auto;
