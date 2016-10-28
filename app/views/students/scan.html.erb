@@ -1,44 +1,48 @@
+
+<div class="text-center">
 <h1>学生証をスキャン</h1>
 <p>スキャナーに裏面をかざしてください</p>
 
-<p id="stuid">*****</p>
+<!-- <p id="stuid">*****</p> -->
+
+</div>
+
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_tag('/students/scan', method: :post) do %>
-      <div class="form-group">
-        <%= label :student, :student_id %>
-        <%= text_field :student, :student_id, class: "form-control" %>
+    <%= form_tag('/students/scan', method: :post ) do %>
+      <div class="form-group spacing">
+        <%= text_field :student, :student_id, class: "form-control input-exlg text-center" %>
       </div>
-      <%= submit_tag "Submit", class: "btn btn-primary" %>
+      <%= submit_tag "Submit", class: "btn btn-primary hidden" %>
     <% end %>
   </div>
 </div>
 
-<%= link_to '学生一覧', students_path %>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-var words = '';
-var scanning = false;
-$(document).keypress(function(e) {
-  if (e.charCode == 13) {
-    if (scanning) {
-      console.log(words);
-      $('#stuid').html(words).change();
-      words = '';
-      scanning = false;
-    } else {
-      scanning = true;
-    }
-    return false;
-  }
-  if (scanning) {
-    var key = String.fromCharCode(e.charCode);
-    words = words + key;
-  }
-});
+// var words = '';
+// var scanning = false;
+// $(document).keypress(function(e) {
+//   if (e.charCode == 13) {
+//     if (scanning) {
+//       console.log(words);
+//       $('#stuid').html(words).change();
+//       words = '';
+//       scanning = false;
+//     } else {
+//       scanning = true;
+//     }
+//     return false;
+//   }
+//   if (scanning) {
+//     var key = String.fromCharCode(e.charCode);
+//     words = words + key;
+//   }
+// });
 
 $(function () {
   document.getElementById('student_student_id').focus();

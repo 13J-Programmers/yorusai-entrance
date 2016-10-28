@@ -12,10 +12,10 @@ class StudentsController < ApplicationController
     if @student = Student.find_by(student_id: params[:student][:student_id]) then
       @student.attended = "true"
       @student.save
-      flash[:success] = "Successfully updated"
+      flash[:success] = "登録しました！夜祭にようこそ"
       redirect_to students_scan_path
     else
-      flash[:danger] = "Failed to update"
+      flash[:danger] = "学籍番号が見つかりません... お近くの役員に問い合わせてください"
       redirect_to students_scan_path
     end
   end
