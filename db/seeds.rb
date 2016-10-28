@@ -10,11 +10,23 @@
 # Student.create(student_id: 67890, attended: false, elected: false)
 # Student.create(student_id: 13426, attended: false, elected: false)
 
-(11..16).each do |grade|
+# grade 1..2
+(15..16).each do |grade|
   (1..5).each do |sub|
     (1..40).each do |num|
       student_id = sprintf("%02d%1d%02d", grade, sub, num)
-      Student.create(student_id: student_id, attended: false, elected: false)
+      Student.create(student_id: student_id, class_id: sub)
+    end
+  end
+end
+
+# grade 3..5
+(12..14).each do |grade|
+  (1..5).each do |sub|
+    dept = %w(M E S J C)[sub-1]
+    (1..40).each do |num|
+      student_id = sprintf("%02d%1d%02d", grade, sub, num)
+      Student.create(student_id: student_id, dept: dept)
     end
   end
 end
