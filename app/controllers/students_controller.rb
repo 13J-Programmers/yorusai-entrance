@@ -1,11 +1,14 @@
 class StudentsController < ApplicationController
-  before_action :logged_in_admin, only: [:index, :scan, :update]
+  before_action :logged_in_admin, only: [:index, :scan, :update, :new, :lottery]
 
   def index
     @students = Student.all
   end
 
   def scan
+  end
+
+  def new
   end
 
   def update
@@ -18,6 +21,9 @@ class StudentsController < ApplicationController
       flash[:danger] = "学籍番号が見つかりません... お近くの役員に問い合わせてください"
       redirect_to students_scan_path
     end
+  end
+
+  def lottery
   end
 
   private
