@@ -1,6 +1,6 @@
 
-<div class="text-center">
-  <h1>Yorusai Entrance</h1>
+<div id="title" class="text-center">
+  <h1>yorusai entrance</h1>
   <h3>ログイン</h3>
 </div>
 
@@ -15,8 +15,9 @@
         <%= f.label :password %>
         <%= f.password_field :password, class: "form-control" %>
       </div>
-
-      <%= f.submit "Log in", class: "btn btn-primary" %>
+      <div class="text-center">
+        <%= f.submit "ログイン", class: "btn btn-primary" %>
+      </div>
     <% end %>
   </div>
 </div>

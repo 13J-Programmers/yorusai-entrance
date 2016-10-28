@@ -16,6 +16,13 @@
 
 @import url(https://fonts.googleapis.com/css?family=Antic+Slab|Cutive);
 
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",'メイリオ',Meiryo,Helvetica,Arial,Sans-Serif;
+  -webkit-font-smoothing: antialiased;
+}
+
 #title {
   margin-top: 8em;
   font-family: "Cutive"
