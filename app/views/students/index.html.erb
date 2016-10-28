@@ -3,35 +3,57 @@
 <%= link_to '登録漏れはこちらから', students_new_path %>
 
 <%
-  @students = @students.to_a.select do |item|
-    item.student_id.to_s[0..1] == "13"
+  # classify
+  if @students.first.grade.between?(1, 2)
+    @students = @students.group_by(&:class_id)
+    students_keys = @students.keys.map { |key| "#{key}組" }
+    students      = @students.values
+  elsif @students.first.grade.between?(3, 5)
+    @students = @students.group_by(&:dept)
+    students_keys = @students.keys.map { |key| "#{key}科" }
+    students      = @students.values
   end
 
-  @students_list = @students.to_a.slice_when do |before, after|
-    before.student_id.to_s[2].to_i + 1 == after.student_id.to_s[2].to_i
-  end.to_a
-
-  max_length = @students_list.map(&:size).max
-  @students_list.map do |students|
-    padding = [nil] * [max_length - students.size, 0].max
-    students.concat(padding)
+  # fill with nil to equalize each array len
+  max_length = students.map(&:size).max
+  students.map do |classified_students|
+    padding = [nil] * [max_length - classified_students.size, 0].max
+    classified_students.concat(padding)
   end
 
-  pp @students_list.to_a
+  # students:
+  #
+  # [[13101, 13102, ..., 13139, 13140]
+  #  [13201, 13202, ..., 13139, nil  ]
+  #  ...
+  #  [13501, 13502, ..., 13539, 13540]]
+  #
 
-  @students_list = @students_list.to_a.transpose
+  students = students.transpose
+
+  # students:
+  #
+  # [[13101, 13202, ..., 13501]
+  #  [13102, 13202, ..., 13502]
+  #  ...
+  #  [13139, 13239, ..., 13539]
+  #  [13140, nil  , ..., 13540]]
+  #
 %>
-
 
 <table class="table">
   <thead>
-    <tr><th>機械科</th><th>電気科</th><th>制御科</th><th>情報科</th><th>環境科</th></tr>
+    <tr>
+      <% students_keys.each do |students_key| %>
+        <th><%= students_key %></th>
+      <% end %>
+    </tr>
   </thead>
   <tbody>
-    <% @students_list.each do |students| %>
+    <% students.each do |column| %>
       <tr>
-        <% students.each do |student| %>
-          <td class="<%= (student&.attended) ? "success" : "" %>"><%= student&.student_id %></td>
+        <% column.each do |student| %>
+          <td class="<%= (student&.attended?) ? "success" : "" %>"><%= student&.student_id %></td>
         <% end %>
       </tr>
     <% end %>
