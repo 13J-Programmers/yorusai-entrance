@@ -1,10 +1,37 @@
-<h1>Students#index</h1>
-<p>Find me in app/views/students/index.html.erb</p>
+<h1>Students list</h1>
 
-<% @students.each do |s| %>
-<ul>
-<li> <%= s.student_id %> </li>
-<li> <%= s.attended %> </li>
-</ul>
+<%
+  @students = @students.to_a.select do |item|
+    item.student_id.to_s[0..1] == "13"
+  end
 
-<% end %>
+  @students_list = @students.to_a.slice_when do |before, after|
+    before.student_id.to_s[2].to_i + 1 == after.student_id.to_s[2].to_i
+  end.to_a
+
+  max_length = @students_list.map(&:size).max
+  @students_list.map do |students|
+    padding = [nil] * [max_length - students.size, 0].max
+    students.concat(padding)
+  end
+
+  pp @students_list.to_a
+
+  @students_list = @students_list.to_a.transpose
+%>
+
+
+<table class="table">
+  <thead>
+    <tr><th>機械科</th><th>電気科</th><th>制御科</th><th>情報科</th><th>環境科</th></tr>
+  </thead>
+  <tbody>
+    <% @students_list.each do |students| %>
+      <tr>
+        <% students.each do |student| %>
+          <td class="<%= (student&.attended) ? "success" : "" %>"><%= student&.student_id %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
