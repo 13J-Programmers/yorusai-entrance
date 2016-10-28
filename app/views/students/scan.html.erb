@@ -28,20 +28,22 @@ $(document).keypress(function(e) {
   }
 });
 
-$('#stuid').change(function(){
-  $.ajax({
-    url: "/students/scan",
-    type: "POST",
-    data: {
-      student_id: words,
-    },
-    dataType: "html",
-    success: function(data) {
-        alert("success");
-    },
-    error: function(data) {
-        alert("errror");
-    }
-  });
-});
+// $('#stuid').change(function(){
+//   $.ajax({
+//     url: "/students/scan",
+//     type: "POST",
+//     data: {
+//       student: {
+//         student_id: words,
+//       }
+//     },
+//     dataType: "html",
+//     success: function(data) {
+//         alert("success");
+//     },
+//     error: function(data) {
+//         alert("errror");
+//     }
+//   });
+// });
 </script>
