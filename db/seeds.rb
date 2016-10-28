@@ -13,7 +13,7 @@
 # grade 1..2
 (15..16).each do |grade|
   (1..5).each do |sub|
-    (1..40).each do |num|
+    (1..Random.new.rand(35..40)).each do |num|
       student_id = sprintf("%02d%1d%02d", grade, sub, num)
       Student.create(student_id: student_id, class_id: sub)
     end
@@ -24,7 +24,7 @@ end
 (12..14).each do |grade|
   (1..5).each do |sub|
     dept = %w(M E S J C)[sub-1]
-    (1..40).each do |num|
+    (1..Random.new.rand(35..40)).each do |num|
       student_id = sprintf("%02d%1d%02d", grade, sub, num)
       Student.create(student_id: student_id, dept: dept)
     end
