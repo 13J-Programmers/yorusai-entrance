@@ -1,6 +1,5 @@
 class StudentsController < ApplicationController
-
-  protect_from_forgery :except => [:update]
+  before_action :logged_in_admin, only: [:index, :scan, :update]
 
   def index
     @students = Student.all
