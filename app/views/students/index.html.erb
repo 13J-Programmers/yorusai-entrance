@@ -5,13 +5,13 @@
 <%
   # classify
   if @students.first.grade.between?(1, 2)
-    @students = @students.group_by(&:class_id)
-    students_keys = @students.keys.map { |key| "#{key}組" }
-    students      = @students.values
+    group = @students.group_by(&:class_id)
+    students_keys = group.keys.map { |key| "#{key}組" }
+    students      = group.values
   elsif @students.first.grade.between?(3, 5)
-    @students = @students.group_by(&:dept)
-    students_keys = @students.keys.map { |key| "#{key}科" }
-    students      = @students.values
+    group = @students.group_by(&:dept)
+    students_keys = group.keys.map { |key| "#{key}科" }
+    students      = group.values
   end
 
   # fill with nil to equalize each array len
@@ -40,6 +40,19 @@
   #  [13140, nil  , ..., 13540]]
   #
 %>
+
+<br>
+<br>
+
+<ul class="nav nav-tabs">
+  <% (1..5).each do |grade| %>
+    <li role="presentation" class="<%= (grade == @grade) ? "active" : "" %>">
+      <%= link_to "#{grade}年", students_path(grade: grade) %>
+    </li>
+  <% end %>
+</ul>
+
+<br>
 
 <table class="table">
   <thead>
