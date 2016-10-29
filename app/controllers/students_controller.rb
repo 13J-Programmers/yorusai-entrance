@@ -57,6 +57,14 @@ class StudentsController < ApplicationController
   end
 
   def classroom
+    classes = Classroom.where(elected: false).to_a
+    if classes.empty? then
+      flash.now[:danger] = "抽選対象がありません"
+    else
+      @winner = classes.sample
+      @winner.elected = true;
+      @winner.save
+    end
   end
 
   private

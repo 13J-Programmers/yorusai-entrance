@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  class_id: MyString
+  elected: false
+
+two:
+  class_id: MyString
+  elected: false

@@ -38,3 +38,17 @@ end
   student.dept = %w(M E S J C)[rand(5)]
   student.save
 end
+
+(1..2).each do |grade|
+  (1..5).each do |sub|
+    class_id = "#{grade}-#{sub}"
+    Classroom.create(class_id: class_id, elected: false)
+  end
+end
+
+(3..5).each do |grade|
+  %w(M E S J C).each do |sub|
+    class_id = "#{grade}#{sub}"
+    Classroom.create(class_id: class_id, elected: false)
+  end
+end
