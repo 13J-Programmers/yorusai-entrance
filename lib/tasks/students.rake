@@ -15,11 +15,11 @@ namespace :students do
 
   desc "reset all students' elected flag"
   task :reset_elected => :environment do
-    Student.update_all("elected = 'f'")
+    Student.update_all(elected: false)
   end
 
   desc "reset all students' attended flag"
   task :reset_attended => :environment do
-    Student.update_all("attended = 'f'")
+    Student.update_all(attended: false)
   end
 end
