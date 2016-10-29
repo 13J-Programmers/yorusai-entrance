@@ -1,6 +1,17 @@
 class Student < ApplicationRecord
+  before_save do
+    if self.grade.between?(1, 2)
+      self.dept = nil
+    elsif self.grade.between?(3, 5)
+      self.class_id = nil
+    end
+  end
+
   # student_id
-  validates :student_id, presence: true, uniqueness: true
+  validates :student_id,
+    presence: true,
+    uniqueness: true,
+    format: { with: /\A[0-9][0-9][1-5][0-9][0-9]\z/ }
 
   #
   # culculate grade from its student_id

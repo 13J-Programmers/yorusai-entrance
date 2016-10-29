@@ -8,10 +8,9 @@ Rails.application.routes.draw do
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
-  get   'students/'      => 'students#index'
+  resources :students, only: [:index, :new, :create]
   get   'students/scan'  => 'students#scan'
   post  'students/scan'  => 'students#update'
-  get   'students/new'   => 'students#new'
   get   'lottery/'       => 'students#lottery'
 
 

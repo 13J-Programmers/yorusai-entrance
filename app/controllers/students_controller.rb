@@ -16,6 +16,17 @@ class StudentsController < ApplicationController
   end
 
   def new
+    @student = Student.new
+  end
+
+  def create
+    @student = Student.new(student_params)
+    if @student.save
+      flash[:success] = "Successfully created!"
+      redirect_to students_url
+    else
+      render 'new'
+    end
   end
 
   def update
@@ -47,6 +58,6 @@ class StudentsController < ApplicationController
 
   private
     def student_params
-      params.require(:student).permit(:student_id, :attended, :elected)
+      params.require(:student).permit(:student_id, :attended, :elected, :dept, :class_id)
     end
 end

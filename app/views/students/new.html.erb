@@ -1,0 +1,38 @@
+
+<div class="text-center">
+  <h1>新規登録</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@student) do |f| %>
+      <%= render 'shared/error_messages' %>
+
+      <div class="form-group">
+        <%= f.label :student_id %>
+        <%= f.text_field :student_id, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <label>1・2年</label>
+        <br>
+        <label><%= f.radio_button :class_id, "1", {} %> 1組</label>
+        <label><%= f.radio_button :class_id, "2", {} %> 2組</label>
+        <label><%= f.radio_button :class_id, "3", {} %> 3組</label>
+        <label><%= f.radio_button :class_id, "4", {} %> 4組</label>
+        <label><%= f.radio_button :class_id, "5", {} %> 5組</label>
+        <br>
+      </div>
+      <div class="form-group">
+        <label>3・4・5年</label>
+        <br>
+        <label><%= f.radio_button :dept, "M", {} %> M科</label>
+        <label><%= f.radio_button :dept, "E", {} %> E科</label>
+        <label><%= f.radio_button :dept, "S", {} %> S科</label>
+        <label><%= f.radio_button :dept, "J", {} %> J科</label>
+        <label><%= f.radio_button :dept, "C", {} %> C科</label>
+      </div>
+
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
