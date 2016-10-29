@@ -17,4 +17,9 @@ namespace :students do
   task :reset_elected => :environment do
     Student.update_all("elected = 'false'")
   end
+
+  desc "reset all students' attended flag"
+  task :reset_attended => :environment do
+    Student.update_all("attended = 'false'")
+  end
 end
