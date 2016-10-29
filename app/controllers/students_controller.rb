@@ -35,8 +35,9 @@ class StudentsController < ApplicationController
     # bug:
     #   incorrect redirct occur?
     #   flash(hided) showed again
-    if students = Student.where(attended: true, elected: false).to_a.empty? then
-      flash[:danger] = "抽選対象がありません。入場処理を行ってください"
+    students = Student.where(attended: true, elected: false).to_a
+    if students.empty? then
+      flash.now[:danger] = "抽選対象がありません。入場処理を行ってください"
     else
       @winner = students.sample
       @winner.elected = true;
