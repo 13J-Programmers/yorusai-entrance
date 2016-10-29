@@ -15,3 +15,15 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+
+function key_down(get_code){
+  if(
+      get_code >= 48 && get_code <= 57
+   || get_code >= 96 && get_code <= 105
+   || get_code == 8 //bs
+   || get_code == 13 //enter
+  )
+   return true;
+  else
+   return false;
+}
