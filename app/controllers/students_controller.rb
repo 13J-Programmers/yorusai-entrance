@@ -32,10 +32,16 @@ class StudentsController < ApplicationController
   end
 
   def lottery
-    students = Student.where(attended: true, elected: false).to_a
-    @winner = students.sample
-    @winner.elected = true;
-    @winner.save
+    # bug:
+    #   incorrect redirct occur?
+    #   flash(hided) showed again
+    if students = Student.where(attended: true, elected: false).to_a.empty? then
+      flash[:danger] = "抽選対象がありません。入場処理を行ってください"
+    else
+      @winner = students.sample
+      @winner.elected = true;
+      @winner.save
+    end
   end
 
   private
