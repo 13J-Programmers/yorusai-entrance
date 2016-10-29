@@ -1,1 +1,8 @@
-<p><%= @winner&.student_id %></p>
+
+<h1 id="js_winner_number"><%= @winner&.student_id %></h1>
+
+<script>
+var winnerNumber = document.getElementById('js_winner_number');
+console.log(winnerNumber.innerText);
+var randomText = new RandomText(winnerNumber).start();
+</script>
