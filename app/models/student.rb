@@ -1,4 +1,7 @@
 class Student < ApplicationRecord
+  # student_id
+  validates :student_id, presence: true, uniqueness: true
+
   #
   # culculate grade from its student_id
   #

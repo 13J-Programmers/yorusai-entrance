@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 20161028061049) do
 
   create_table "students", force: :cascade do |t|
     t.integer  "student_id"
-    t.boolean  "attended"
-    t.boolean  "elected"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "attended",   default: false, null: false
+    t.boolean  "elected",    default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "dept"
     t.integer  "class_id"
   end
