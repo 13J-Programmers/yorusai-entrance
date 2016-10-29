@@ -1,6 +1,5 @@
 <div class="text-center exlg spacing-md">
-<h1 id="js_winner_number"><%= @winner&.student_id %></h1>
-
+<p id="js_winner_number"><%= @winner&.student_id %></p>
 
 <%= button_to '次の番号', lottery_result_path, method: 'get', class: "btn btn-lg btn-default" %>
 </div>
