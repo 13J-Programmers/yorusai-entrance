@@ -1,1 +1,6 @@
-<p><%= @winner&.student_id %></p>
+<div class="text-center spacing-md">
+
+<%= link_to '個人を抽選', lottery_result_path,    method: :get, class: "btn btn-exlg btn-default" %>
+<%= link_to 'クラス抽選', lottery_classroom_path, method: :get, class: "btn btn-exlg btn-default" %>
+
+</div>

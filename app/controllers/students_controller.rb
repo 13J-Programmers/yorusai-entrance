@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :logged_in_admin, only: [:index, :scan, :update, :new, :lottery]
+  before_action :logged_in_admin, only: [:index, :scan, :update, :new, :lottery, :result, :classroom]
 
   def index
     @grade = (params[:grade].blank?) ? 1 : params[:grade].to_i
@@ -43,9 +43,9 @@ class StudentsController < ApplicationController
   end
 
   def lottery
-    # bug:
-    #   incorrect redirct occur?
-    #   flash(hided) showed again
+  end
+
+  def result
     students = Student.where(attended: true, elected: false).to_a
     if students.empty? then
       flash.now[:danger] = "抽選対象がありません。入場処理を行ってください"
@@ -54,6 +54,9 @@ class StudentsController < ApplicationController
       @winner.elected = true;
       @winner.save
     end
+  end
+
+  def classroom
   end
 
   private
