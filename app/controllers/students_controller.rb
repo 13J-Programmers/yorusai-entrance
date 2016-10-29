@@ -32,6 +32,12 @@ class StudentsController < ApplicationController
   end
 
   def lottery
+    # Default value of some column that have boolean type in student model is null.
+    # Either next is necessary:
+    #   - prohibit null
+    #   - init with false
+    students = Student.where(attended: true, elected: nil).to_a
+    @winner = students.sample
   end
 
   private
