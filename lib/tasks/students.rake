@@ -12,4 +12,9 @@ namespace :students do
       student.save
     end
   end
+
+  desc "reset all students' elected flag"
+  task :reset_elected => :environment do
+    Student.update_all("elected = 'false'")
+  end
 end
