@@ -33,11 +33,13 @@ class StudentsController < ApplicationController
 
   def lottery
     # Default value of some column that have boolean type in student model is null.
-    # Either next is necessary:
+    # necessary:
     #   - prohibit null
-    #   - init with false
+    #   - init with false in seeds.rb
     students = Student.where(attended: true, elected: nil).to_a
     @winner = students.sample
+    @winner.elected = true;
+    @winner.save
   end
 
   private
