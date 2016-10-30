@@ -75,7 +75,13 @@
     <% students.each do |column| %>
       <tr>
         <% column.each do |student| %>
-          <td class="<%= (student&.attended?) ? "success" : "" %>"><%= student&.student_id %></td>
+          <td class="<%=
+          if (student&.elected?) then
+            "elected"
+          elsif (student&.attended?) then
+            "success"
+          end
+          %>"><%= student&.student_id %></td>
         <% end %>
       </tr>
     <% end %>
