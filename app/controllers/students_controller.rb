@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :logged_in_admin, only: [:index, :scan, :update, :new, :lottery, :result, :classroom]
+  before_action :logged_in_admin, only: [:index, :scan, :update, :new, :lottery, :result, :classroom, :numbers]
 
   def index
     @grade = (params[:grade].blank?) ? 1 : params[:grade].to_i
@@ -64,6 +64,17 @@ class StudentsController < ApplicationController
       @winner = classes.sample
       @winner.elected = true;
       @winner.save
+    end
+  end
+
+  def numbers
+    @winners = Student.where(elected: true).order(:updated_at).pluck(:student_id)
+    if @winners.empty? then
+      # flash[:info] = "当選番号はまだありません"
+    end
+    @classes = Classroom.where(elected: true).order(:updated_at).pluck(:class_id)
+    if @classes.empty? then
+      # flash[:info] = "当選クラスはまだありません"
     end
   end
 

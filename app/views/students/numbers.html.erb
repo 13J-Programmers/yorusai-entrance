@@ -1,0 +1,14 @@
+<!-- students -->
+<div class="text-center">
+<% @winners.each do |winner| %>
+<p><%= winner %></p>
+<% end %>
+</div>
+
+<div class="text-center">
+<% @classes.each do |winner| %>
+<p><%= winner %></p>
+<% end %>
+</div>
+
+<%= link_to '抽選トップページ', lottery_path %>

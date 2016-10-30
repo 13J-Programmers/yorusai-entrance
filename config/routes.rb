@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get   'lottery/'           => 'students#lottery'
   get   'lottery/result'     => 'students#result'
   get   'lottery/classroom'  => 'students#classroom'
-
+  get   'lottery/numbers'    => 'students#numbers'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
