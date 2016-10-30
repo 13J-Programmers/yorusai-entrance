@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   get 'usage' => 'application#usage', :as => 'usage'
 
   resources :admins, only: [:index, :edit, :show, :update]
-  get    'login'  => 'sessions#new'
-  post   'login'  => 'sessions#create'
-  delete 'logout' => 'sessions#destroy'
+  get    'login'    => 'sessions#new'
+  post   'login'    => 'sessions#create'
+  delete 'logout'   => 'sessions#destroy'
+  post   'settings' => 'admins#general_settings', as: :general_settings
 
   resources :students, only: [:index, :new, :create]
   get   'students/scan'      => 'students#scan'

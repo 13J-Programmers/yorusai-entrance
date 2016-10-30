@@ -1,6 +1,8 @@
 
-<h1>All admins</h1>
+<h1>管理者一覧</h1>
 
 <ul class="admins">
-  <%= render @admins %>
+  <% @admins.each do |admin| %>
+    <li><%= admin.name %></li>
+  <% end %>
 </ul>

@@ -1,10 +1,156 @@
 
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= @admin.name %>
-      </h1>
-    </section>
-  </aside>
+<h1><%= @admin.name %></h1>
+
+<br>
+
+<!-- Student model -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Students Database</h3>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item">
+      <%= form_tag(general_settings_path) do %>
+        <%= label_tag 'command', '出席の取り消し' %>
+        <p>
+          全学生の出席の記録を消します。
+        </p>
+        <%= hidden_field_tag 'command', 'students:reset_attended' %>
+        <%= submit_tag 'Reset', class: 'btn btn-warning' %>
+      <% end %>
+    </li>
+    <li class="list-group-item">
+      <%= form_tag(general_settings_path) do %>
+        <%= label_tag 'command', '抽選結果の削除' %>
+        <p>
+          全学生の抽選に当たった記録を消します。
+        </p>
+        <%= hidden_field_tag 'command', 'students:reset_elected' %>
+        <%= submit_tag 'Reset', class: 'btn btn-warning' %>
+      <% end %>
+    </li>
+    <li class="list-group-item">
+      <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /student/:id/create %>
+        <%= label_tag 'command', '学生の追加' %>
+        <p>
+          指定した学生の追加を行います。
+        </p>
+        <div class="input-group">
+          <%= text_field_tag 'command', '', class: "form-control" %>
+          <span class="input-group-btn">
+            <%= submit_tag 'Create', class: 'btn btn-primary', disabled: true %>
+          </span>
+        </div>
+      <% end %>
+    </li>
+    <li class="list-group-item">
+      <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /student/:id/destroy %>
+        <%= label_tag 'command', '学生の削除' %>
+        <p>
+          指定した学生の削除を行います。
+        </p>
+        <div class="input-group">
+          <%= text_field_tag 'command', '', class: "form-control" %>
+          <span class="input-group-btn">
+            <%= submit_tag 'Delete', class: 'btn btn-danger', disabled: true %>
+          </span>
+        </div>
+      <% end %>
+    </li>
+  </ul>
 </div>
+
+<!-- Classrooms model -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Classrooms Database</h3>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item">
+      <%= form_tag(general_settings_path) do %>
+        <%= label_tag 'command', 'クラス抽選結果の削除' %>
+        <p>
+          全クラスの抽選に当たった記録を消します。
+        </p>
+        <%= hidden_field_tag 'command', 'students:reset_elected' %>
+        <%= submit_tag 'Reset', class: 'btn btn-warning' %>
+      <% end %>
+    </li>
+    <li class="list-group-item">
+      <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /classroom/:id/create %>
+        <%= label_tag 'command', 'クラスの追加' %>
+        <p>
+          指定したクラスの追加を行います。
+        </p>
+        <div class="input-group">
+          <%= text_field_tag 'command', '', class: "form-control" %>
+          <span class="input-group-btn">
+            <%= submit_tag 'Create', class: 'btn btn-primary', disabled: true %>
+          </span>
+        </div>
+      <% end %>
+    </li>
+    <li class="list-group-item">
+      <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /classroom/:id/destroy %>
+        <%= label_tag 'command', 'クラスの削除' %>
+        <p>
+          指定したクラスの削除を行います。
+        </p>
+        <div class="input-group">
+          <%= text_field_tag 'command', '', class: "form-control" %>
+          <span class="input-group-btn">
+            <%= submit_tag 'Delete', class: 'btn btn-danger', disabled: true %>
+          </span>
+        </div>
+      <% end %>
+    </li>
+  </ul>
+</div>
+
+<!-- Admin model -->
+<% if @admin.name == "admin" %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Admins Database</h3>
+  </div>
+
+  <div class="panel-body">
+    管理者は、学生データーベースの閲覧・変更を行うことができます。<br>
+    <%= link_to '管理者一覧', admins_path %>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item">
+      <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /admin/:id/new %>
+        <%= label_tag 'command', '管理者の追加' %>
+        <p>
+          指定した名前の管理者を作成します。初期パスワードはランダムな文字列で設定されるので、
+          ログイン後に必ずパスワードの変更を行ってください。
+        </p>
+        <div class="input-group">
+          <%= text_field_tag 'command', '', class: "form-control" %>
+          <span class="input-group-btn">
+            <%= submit_tag 'Create', class: 'btn btn-primary', disabled: true %>
+          </span>
+        </div>
+      <% end %>
+    </li>
+    <li class="list-group-item">
+      <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /admin/:id/destroy %>
+        <%= label_tag 'command', '管理者の削除' %>
+        <p>
+          指定した管理者の削除を行います。注意：admin という名前の管理者は削除できません。
+        </p>
+        <div class="input-group">
+          <%= text_field_tag 'command', '', class: "form-control" %>
+          <span class="input-group-btn">
+            <%= submit_tag 'Delete', class: 'btn btn-danger', disabled: true %>
+          </span>
+        </div>
+      <% end %>
+    </li>
+  </ul>
+</div>
+<% end %>
