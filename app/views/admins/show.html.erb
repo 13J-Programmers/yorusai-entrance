@@ -190,7 +190,7 @@
           <% end %>
         </li>
         <li class="list-group-item">
-          <%= form_tag(general_settings_path) do %>
+          <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /classrooms/reset_elected %>
             <%= label_tag 'command', 'クラス抽選結果の削除' %>
             <p>
               全クラスの抽選に当たった記録を消します。
