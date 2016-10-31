@@ -103,7 +103,7 @@ class StudentsController < ApplicationController
   def classroom
     target = Classroom.where(elected: false)
     @winner = target.offset(rand(target.count)).first
-    if @winner.empty?
+    if @winner.nil?
       flash.now[:danger] = "抽選対象がありません"
     else
       @winner.elected = true;
