@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20161031115917) do
     t.datetime "updated_at",                  null: false
     t.string   "dept"
     t.integer  "class_id"
-    t.date     "attended_at"                  null: false
-    t.date     "elected_at"                   null: false
+    t.datetime "attended_at"
+    t.datetime "elected_at"
   end
 
 end
