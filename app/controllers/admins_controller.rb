@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
   before_action :logged_in_admin
-  before_action :correct_admin, only: [:edit, :update, :show, :general_settings]
+  before_action :correct_admin, only: [:edit, :update, :show]
 
   def index
     @admins = Admin.all
