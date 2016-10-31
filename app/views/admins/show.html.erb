@@ -3,6 +3,19 @@
 
 <br>
 
+<%#
+  Student model
+    /student/:id/create
+    /students/create_from_csv
+    /student/:id/destroy
+    /students/destroy_all
+    /students/reset_elected
+    /students/reset_attended
+    (/students/attend_at_random)
+
+  Classroom model
+%>
+
 <div class="row">
   <div class="col-md-6">
 
@@ -19,13 +32,22 @@
 
       <ul class="list-group">
         <li class="list-group-item">
-          <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /student/:id/create %>
+          <%= form_tag(new_student_path) do %>
             <%= label_tag 'command', '学生の追加' %>
             <p>
               指定した学生の追加を行います。
             </p>
             <div class="input-group">
-              <%= text_field_tag 'command', '', class: "form-control" %>
+              <%= select_tag 'department', options_for_select({
+                  "1年1組" => "1-1", "1年2組" => "1-2", "1年3組" => "1-3", "1年4組" => "1-4", "1年5組" => "1-5",
+                  "2年1組" => "2-1", "2年2組" => "2-2", "2年3組" => "2-3", "2年4組" => "2-4", "2年5組" => "2-5",
+                  "3年M科" => "3M",  "3年E科" => "3E",  "3年S科" => "3S",  "3年J科" => "3J",  "3年C科" => "3C",
+                  "4年M科" => "4M",  "4年E科" => "4E",  "4年S科" => "4S",  "4年J科" => "4J",  "4年C科" => "4C",
+                  "5年M科" => "5M",  "5年E科" => "5E",  "5年S科" => "5S",  "5年J科" => "5J",  "5年C科" => "5C",
+                }), class: "form-control" %>
+            </div>
+            <div class="input-group">
+              <%= text_field_tag 'command', '', class: "form-control", placeholder: "学籍番号" %>
               <span class="input-group-btn">
                 <%= submit_tag 'Create', class: 'btn btn-primary', disabled: true %>
               </span>
@@ -33,7 +55,7 @@
           <% end %>
         </li>
         <li class="list-group-item">
-          <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /students/create_from_csv %>
+          <%= form_tag(students_create_from_csv_path) do %>
             <%= label_tag 'command', '学生一覧ファイルの読み込み' %>
             <p>
               CSVファイルから学生一覧を読み込んで、データベースに追加します。CSVファイルの形式については<%= link_to "こちら", '#' %>。
@@ -47,48 +69,57 @@
           <% end %>
         </li>
         <li class="list-group-item">
-          <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /student/:id/destroy %>
-            <%= label_tag 'command', '学生の削除' %>
+          <%= form_tag(student_path, method: :delete) do %>
+            <%= label_tag 'student_id', '学生の削除' %>
             <p>
               指定した学生の削除を行います。
             </p>
             <div class="input-group">
-              <%= text_field_tag 'command', '', class: "form-control" %>
+              <%= text_field_tag 'student_id', '', class: "form-control", placeholder: "学籍番号" %>
               <span class="input-group-btn">
-                <%= submit_tag 'Delete', class: 'btn btn-danger', disabled: true %>
+                <%= submit_tag 'Delete', class: 'btn btn-danger', disabled: false %>
               </span>
             </div>
           <% end %>
         </li>
         <li class="list-group-item">
-          <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /students/destroy_all %>
+          <%= form_tag(students_path, method: :delete) do %>
             <%= label_tag 'command', '全学生の削除' %>
             <p>
               登録してある全学生の削除を行います。
             </p>
-            <%= submit_tag 'Delete all', class: 'btn btn-danger', disabled: true %>
+            <%= submit_tag 'Delete all', class: 'btn btn-danger' %>
           <% end %>
         </li>
         <li class="list-group-item">
-          <%= form_tag(general_settings_path) do %>
+          <%= form_tag(students_reset_attended_path) do %>
             <%= label_tag 'command', '出席の取り消し' %>
             <p>
               全学生の出席の記録を消します。
             </p>
-            <%= hidden_field_tag 'command', 'students:reset_attended' %>
             <%= submit_tag 'Reset', class: 'btn btn-warning' %>
           <% end %>
         </li>
         <li class="list-group-item">
-          <%= form_tag(general_settings_path) do %>
+          <%= form_tag(students_reset_elected_path) do %>
             <%= label_tag 'command', '抽選結果の削除' %>
             <p>
               全学生の抽選に当たった記録を消します。
             </p>
-            <%= hidden_field_tag 'command', 'students:reset_elected' %>
             <%= submit_tag 'Reset', class: 'btn btn-warning' %>
           <% end %>
         </li>
+        <% if Rails.env.development? %>
+        <li class="list-group-item">
+          <%= form_tag(students_attend_at_random_path) do %>
+            <%= label_tag 'command', '（開発者モード）複数のランダムな学生を出席させる' %>
+            <p>
+              全学生の中から複数のランダムな学生を出席させます。
+            </p>
+            <%= submit_tag 'Attend', class: 'btn btn-default' %>
+          <% end %>
+        </li>
+        <% end %>
       </ul>
     </div>
 
