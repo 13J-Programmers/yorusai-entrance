@@ -46,22 +46,20 @@ class StudentsController < ApplicationController
   end
 
   def result
-    students = Student.where(attended: true, elected: false).to_a
-    if students.empty? then
+    @winner = Student.where(attended: true, elected: false).offset(rand(Student.count)).first
+    if @winner.nil? then
       flash.now[:danger] = "抽選対象がありません。入場処理を行ってください"
     else
-      @winner = students.sample
       @winner.elected = true;
       @winner.save
     end
   end
 
   def classroom
-    classes = Classroom.where(elected: false).to_a
-    if classes.empty? then
+    @winner = Classroom.where(elected: false).offset(rand(Student.count)).first
+    if @winner.empty? then
       flash.now[:danger] = "抽選対象がありません"
     else
-      @winner = classes.sample
       @winner.elected = true;
       @winner.save
     end
