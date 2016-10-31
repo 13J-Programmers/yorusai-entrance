@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(version: 20161029152620) do
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "class_id"
-    t.boolean  "elected"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "elected",    default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "students", force: :cascade do |t|
