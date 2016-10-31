@@ -32,6 +32,7 @@ class StudentsController < ApplicationController
   def update
     if @student = Student.find_by(student_id: params[:student][:student_id]) then
       @student.attended = "true"
+      @student.attended_at = DateTime.current()
       @student.save
       # flash[:success] = "No.#{@student.student_id}を登録しました！夜祭にようこそ！"
       flash[:success] = "登録しました！#{@student.student_id}さん、夜祭にようこそ！"
@@ -96,6 +97,7 @@ class StudentsController < ApplicationController
     else
       @winner = students.sample
       @winner.elected = true;
+      @winner.elected_at = DateTime.current()
       @winner.save
     end
   end
