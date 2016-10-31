@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Student.create(student_id: 12345, attended: false, elected: false)
-# Student.create(student_id: 67890, attended: false, elected: false)
-# Student.create(student_id: 13426, attended: false, elected: false)
+# drop student and classroom table
+Student.destroy_all
+Classroom.destroy_all
 
 # grade 1..2
 (15..16).each do |grade|
