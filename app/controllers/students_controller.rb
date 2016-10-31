@@ -30,7 +30,7 @@ class StudentsController < ApplicationController
   end
 
   def update
-    if @student = Student.find_by(student_id: params[:student][:student_id]) then
+    if @student = Student.find_by(student_id: params[:student][:student_id])
       @student.attended = "true"
       @student.save
       # flash[:success] = "No.#{@student.student_id}を登録しました！夜祭にようこそ！"
@@ -92,7 +92,7 @@ class StudentsController < ApplicationController
   def result
     target = Student.where(attended: true, elected: false)
     @winner = target.offset(rand(target.count)).first
-    if @winner.nil? then
+    if @winner.nil?
       flash.now[:danger] = "抽選対象がありません。入場処理を行ってください"
     else
       @winner.elected = true;
@@ -103,7 +103,7 @@ class StudentsController < ApplicationController
   def classroom
     target = Classroom.where(elected: false)
     @winner = target.offset(rand(target.count)).first
-    if @winner.empty? then
+    if @winner.empty?
       flash.now[:danger] = "抽選対象がありません"
     else
       @winner.elected = true;
@@ -113,11 +113,11 @@ class StudentsController < ApplicationController
 
   def numbers
     @winners = Student.where(elected: true).order(:updated_at).pluck(:student_id)
-    if @winners.empty? then
+    if @winners.empty?
       # flash[:info] = "当選番号はまだありません"
     end
     @classes = Classroom.where(elected: true).order(:updated_at).pluck(:class_id)
-    if @classes.empty? then
+    if @classes.empty?
       # flash[:info] = "当選クラスはまだありません"
     end
   end
