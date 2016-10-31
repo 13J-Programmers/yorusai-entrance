@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :logged_in_admin, only: [:index, :scan, :update, :new, :lottery, :result, :classroom, :numbers]
+  before_action :logged_in_admin
 
   def index
     @grade = (params[:grade].blank?) ? 1 : params[:grade].to_i
@@ -41,6 +41,50 @@ class StudentsController < ApplicationController
       redirect_to students_scan_path
     end
   end
+
+  def create_from_csv
+    # todo:
+  end
+
+  def destroy
+    if params[:student_id].present?
+      student = Student.find_by(student_id: params[:student_id]).destroy
+      flash[:success] = "Student #{student.student_id} have been deleted."
+    end
+    redirect_back(fallback_location: root_path)
+  end
+
+  def destroy_all
+    Student.destroy_all
+    flash[:success] = "All students have been deleted."
+    redirect_back(fallback_location: root_path)
+  end
+
+  def reset_elected
+    Student.update_all(elected: false)
+    flash[:success] = "Elected flag has been reset."
+    redirect_back(fallback_location: root_path)
+  end
+
+  def reset_attended
+    Student.update_all(attended: false)
+    flash[:success] = "Attended flag has been reset."
+    redirect_back(fallback_location: root_path)
+  end
+
+  def attend_at_random
+    n = (params[:time]) ? params[:time].to_i : 100
+    100.times do
+      student = Student.where(attended: false).offset(rand(Student.count)).first
+      next if student.nil?
+      student.attended = true
+      student.save
+    end
+    flash[:success] = "Some students have been attended."
+    redirect_back(fallback_location: root_path)
+  end
+
+  # ---
 
   def lottery
   end
