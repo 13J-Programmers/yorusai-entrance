@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20161031115917) do
     t.integer  "class_id"
     t.datetime "attended_at"
     t.datetime "elected_at"
+    t.integer  "grade"                        null: false
   end
 
 end
