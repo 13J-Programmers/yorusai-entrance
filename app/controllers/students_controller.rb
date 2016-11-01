@@ -5,11 +5,7 @@ class StudentsController < ApplicationController
     @grade = (params[:grade].blank?) ? 1 : params[:grade].to_i
     raise "grade must be between 1..5" unless @grade.between?(1, 5)
 
-    # get records of specified grade
-    @students = Student.where(
-      "student_id LIKE '?%'",
-      Student.grade_to_digit(@grade)
-    ).to_a
+    @students = Student.where(grade: @grade)
   end
 
   def scan
