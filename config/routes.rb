@@ -22,5 +22,10 @@ Rails.application.routes.draw do
   get    'lottery/classroom'  => 'students#classroom'
   get    'lottery/numbers'    => 'students#numbers'
 
+  resources :classrooms, only: [:index, :create, :destroy]
+  post   'classrooms/create_from_csv' => 'classrooms#create_from_csv'
+  delete 'classrooms' => 'classrooms#destroy_all'
+  post   'classrooms/reset_elected' => 'classrooms#reset_elected'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -24,20 +24,6 @@ class AdminsController < ApplicationController
     end
   end
 
-  def general_settings
-    case params[:command]
-    when "students:reset_attended"
-      Student.update_all(attended: false)
-      flash[:success] = "Attended flag has been reset."
-    when "students:reset_elected"
-      Student.update_all(elected: false)
-      flash[:success] = "Elected flag has been reset."
-    when "classrooms:reset_elected"
-      Classroom.update_all(elected: false)
-    end
-    redirect_back(fallback_location: root_path)
-  end
-
   private
     def admin_params
       params.require(:admin).permit(:name, :email, :password, :password_confirmation)
