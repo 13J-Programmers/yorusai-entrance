@@ -15,7 +15,7 @@ Classroom.destroy_all
   (1..5).each do |sub|
     (1..rand(35..40)).each do |num|
       student_id = sprintf("%02d%1d%02d", grade, sub, num)
-      Student.create(student_id: student_id, class_id: sub)
+      Student.create(student_id: student_id, grade: grade, class_id: sub)
     end
   end
 end
@@ -26,7 +26,7 @@ end
     dept = %w(M E S J C)[sub-1]
     (1..rand(35..40)).each do |num|
       student_id = sprintf("%02d%1d%02d", grade, sub, num)
-      Student.create(student_id: student_id, dept: dept)
+      Student.create(student_id: student_id, grade: grade, dept: dept)
     end
   end
 end
