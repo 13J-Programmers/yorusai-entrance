@@ -28,28 +28,28 @@
 </div>
 
 <script>
-  $('#grade').change(function () {
+  $('#student_grade').change(function () {
     var grade = $(this).val();
     switch (grade) {
       case "1":
       case "2":
-        $('#class_id').prop('disabled', false);
-        $('#dept').prop('disabled', true);
+        $('#student_class_id').prop('disabled', false);
+        $('#student_dept').prop('disabled', true);
         break;
       case "3":
       case "4":
       case "5":
-        $('#class_id').prop('disabled', true);
-        $('#dept').prop('disabled', false);
+        $('#student_class_id').prop('disabled', true);
+        $('#student_dept').prop('disabled', false);
         break;
       default:
-        $('#class_id').prop('disabled', true);
-        $('#dept').prop('disabled', true);
+        $('#student_class_id').prop('disabled', true);
+        $('#student_dept').prop('disabled', true);
     }
   });
 
   $(function () {
     // start script
-    $('#grade').trigger('change');
+    $('#student_grade').trigger('change');
   })
 </script>
