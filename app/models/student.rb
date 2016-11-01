@@ -13,6 +13,9 @@ class Student < ApplicationRecord
     uniqueness: true,
     format: { with: /\A[0-9][0-9][1-5][0-9][0-9]\z/ }
 
+  # grade
+  validates :grade, presence: true
+
   #
   # culculate grade from its student_id
   #
