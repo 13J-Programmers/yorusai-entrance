@@ -1,9 +1,23 @@
 <h1>学生一覧</h1>
 
-<p>入場済はグリーン、当選した番号はブルーで着色されます</p> 
+<p>入場済はグリーン、当選した番号はブルーで着色されます</p>
 <%= link_to '登録漏れはこちらから', new_student_path %>
 
-<%
+<br>
+<br>
+
+<ul class="nav nav-tabs">
+  <% (1..5).each do |grade| %>
+    <li role="presentation" class="<%= (grade == @grade) ? "active" : "" %>">
+      <%= link_to "#{grade}年", students_path(grade: grade) %>
+    </li>
+  <% end %>
+</ul>
+
+<br>
+
+<% if @students.exists? %>
+  <%
   # classify
   if @students.first.grade.between?(1, 2)
     group = @students.group_by(&:class_id)
@@ -49,42 +63,30 @@
   #  [13139, 13239, ..., 13539]
   #  [13140, nil  , ..., 13540]]
   #
-%>
+  %>
 
-<br>
-<br>
-
-<ul class="nav nav-tabs">
-  <% (1..5).each do |grade| %>
-    <li role="presentation" class="<%= (grade == @grade) ? "active" : "" %>">
-      <%= link_to "#{grade}年", students_path(grade: grade) %>
-    </li>
-  <% end %>
-</ul>
-
-<br>
-
-<table class="table">
-  <thead>
-    <tr>
-      <% students_keys.each do |students_key| %>
-        <th><%= students_key %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% students.each do |column| %>
+  <table class="table">
+    <thead>
       <tr>
-        <% column.each do |student| %>
-          <td class="<%=
-          if (student&.elected?) then
-            "elected"
-          elsif (student&.attended?) then
-            "success"
-          end
-          %>"><%= student&.student_id %></td>
+        <% students_keys.each do |students_key| %>
+          <th><%= students_key %></th>
         <% end %>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% students.each do |column| %>
+        <tr>
+          <% column.each do |student| %>
+            <td class="<%=
+            if (student&.elected?) then
+              "elected"
+            elsif (student&.attended?) then
+              "success"
+            end
+            %>"><%= student&.student_id %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
