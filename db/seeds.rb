@@ -11,22 +11,22 @@ Student.destroy_all
 Classroom.destroy_all
 
 # grade 1..2
-(15..16).each do |grade|
+(15..16).each do |digit|
   (1..5).each do |sub|
     (1..rand(35..40)).each do |num|
-      student_id = sprintf("%02d%1d%02d", grade, sub, num)
-      Student.create(student_id: student_id, grade: grade, class_id: sub)
+      student_id = sprintf("%02d%1d%02d", digit, sub, num)
+      Student.create(student_id: student_id, grade: Student.digit_to_grade(digit), class_id: sub)
     end
   end
 end
 
 # grade 3..5
-(12..14).each do |grade|
+(12..14).each do |digit|
   (1..5).each do |sub|
     dept = %w(M E S J C)[sub-1]
     (1..rand(35..40)).each do |num|
-      student_id = sprintf("%02d%1d%02d", grade, sub, num)
-      Student.create(student_id: student_id, grade: grade, dept: dept)
+      student_id = sprintf("%02d%1d%02d", digit, sub, num)
+      Student.create(student_id: student_id, grade: Student.digit_to_grade(digit), dept: dept)
     end
   end
 end
