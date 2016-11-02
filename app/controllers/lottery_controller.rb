@@ -1,5 +1,5 @@
 class LotteryController < ApplicationController
-  def lottery
+  def index
   end
 
   def student
