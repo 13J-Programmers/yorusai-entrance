@@ -2,7 +2,7 @@
 
 <!-- students -->
 <div class="text-center">
-  <h2>学籍番号</h2>
+  <h2>当選番号</h2>
   <table class="table table-striped">
     <% @winners.in_groups_of(3).to_a.each do | numbers | %>
       <tr>
@@ -17,7 +17,7 @@
 <div class="spacing-sm"></div>
 
 <div class="text-center">
-  <h2>クラス</h2>
+  <h2>当選クラス</h2>
   <table class="table table-striped">
     <% @classes.in_groups_of(3).to_a.each do | ids | %>
       <tr>
