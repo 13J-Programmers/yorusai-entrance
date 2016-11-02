@@ -53,19 +53,22 @@ class StudentsController < ApplicationController
 
   def destroy_all
     Student.destroy_all
-    flash[:success] = "All students have been deleted."
+    # flash[:success] = "All students have been deleted."
+    flash[:success] = "全学生の削除が完了しました"
     redirect_back(fallback_location: root_path)
   end
 
   def reset_elected
     Student.update_all(elected: false)
-    flash[:success] = "Elected flag has been reset."
+    # flash[:success] = "Elected flag has been reset."
+    flash[:success] = "抽選記録が正常にリセットされました"
     redirect_back(fallback_location: root_path)
   end
 
   def reset_attended
     Student.update_all(attended: false)
-    flash[:success] = "Attended flag has been reset."
+    # flash[:success] = "Attended flag has been reset."
+    flash[:success] = "入場記録が正常にリセットされました"
     redirect_back(fallback_location: root_path)
   end
 
@@ -77,7 +80,8 @@ class StudentsController < ApplicationController
       student.attended = true
       student.save
     end
-    flash[:success] = "Some students have been attended."
+    # flash[:success] = "Some students have been attended."
+    flash[:success] = "ランダム入場：完了しました"
     redirect_back(fallback_location: root_path)
   end
 
