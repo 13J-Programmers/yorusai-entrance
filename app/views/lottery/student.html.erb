@@ -1,11 +1,11 @@
 <div class="text-center spacing-md">
 <p id="js_winner_number" class="exlg"><%= @winner&.student_id %></p>
 
-<%= button_to '次の番号', lottery_result_path, method: 'get', class: "btn btn-lg btn-default" %>
+<%= button_to '次の番号', lottery_student_path, method: 'get', class: "btn btn-lg btn-default" %>
 </div>
 
 <div class="text-center spacing-ty">
-<%= link_to '当選番号一覧', lottery_numbers_path, class: "btn btn-lg btn-default" %>
+<%= link_to '当選番号一覧', lottery_result_path, class: "btn btn-lg btn-default" %>
 </div>
 
 <script>
