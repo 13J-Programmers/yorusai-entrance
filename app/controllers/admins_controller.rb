@@ -17,7 +17,8 @@ class AdminsController < ApplicationController
   def update
     @admin = Admin.find(params[:id])
     if @admin.update_attributes(admin_params)
-      flash[:success] = "Successfully saved!"
+      # flash[:success] = "Successfully saved!"
+      flash[:success] = "正常に保存されました！"
       redirect_to @admin
     else
       render 'edit'

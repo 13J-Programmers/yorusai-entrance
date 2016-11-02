@@ -26,13 +26,15 @@ class ClassroomsController < ApplicationController
 
   def destroy_all
     Classroom.destroy_all
-    flash[:success] = "All classrooms have been deleted."
+    # flash[:success] = "All classrooms have been deleted."
+    flash[:success] = "全クラスの削除が完了しました。"
     redirect_back(fallback_location: root_path)
   end
 
   def reset_elected
     Classroom.update_all(elected: false)
-    flash[:success] = "Elected flag has been reset."
+    # flash[:success] = "Elected flag has been reset."
+    flash[:success] = "抽選記録は正常にリセットされました。"
     redirect_back(fallback_location: root_path)
   end
 
