@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   post   'settings' => 'admins#general_settings', as: :general_settings
 
   resources :students, only: [:index, :new, :create, :destroy]
-  get    'students/scan'      => 'students#scan'
-  post   'students/scan'      => 'students#update'
+  get    'students/scan'             => 'students#scan'
+  post   'students/scan'             => 'students#update'
   post   'students/create_from_csv'  => 'students#create_from_csv'
   delete 'students'                  => 'students#destroy_all'
   post   'students/reset_elected'    => 'students#reset_elected'
@@ -20,8 +20,8 @@ Rails.application.routes.draw do
 
   resources :classrooms, only: [:index, :create, :destroy]
   post   'classrooms/create_from_csv' => 'classrooms#create_from_csv'
-  delete 'classrooms' => 'classrooms#destroy_all'
-  post   'classrooms/reset_elected' => 'classrooms#reset_elected'
+  delete 'classrooms'                 => 'classrooms#destroy_all'
+  post   'classrooms/reset_elected'   => 'classrooms#reset_elected'
 
   get    'lottery/'          => 'lottery#index'
   get    'lottery/student'   => 'lottery#student'
