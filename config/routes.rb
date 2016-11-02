@@ -17,15 +17,16 @@ Rails.application.routes.draw do
   post   'students/reset_elected'    => 'students#reset_elected'
   post   'students/reset_attended'   => 'students#reset_attended'
   post   'students/attend_at_random' => 'students#attend_at_random'
-  get    'lottery/'           => 'students#lottery'
-  get    'lottery/result'     => 'students#result'
-  get    'lottery/classroom'  => 'students#classroom'
-  get    'lottery/numbers'    => 'students#numbers'
 
   resources :classrooms, only: [:index, :create, :destroy]
   post   'classrooms/create_from_csv' => 'classrooms#create_from_csv'
   delete 'classrooms' => 'classrooms#destroy_all'
   post   'classrooms/reset_elected' => 'classrooms#reset_elected'
+
+  get    'lottery/'          => 'lottery#lottery'
+  get    'lottery/student'   => 'lottery#student'
+  get    'lottery/classroom' => 'lottery#classroom'
+  get    'lottery/result'    => 'lottery#result'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
