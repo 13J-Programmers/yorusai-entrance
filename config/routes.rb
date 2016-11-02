@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   delete 'classrooms' => 'classrooms#destroy_all'
   post   'classrooms/reset_elected' => 'classrooms#reset_elected'
 
-  get    'lottery/'          => 'lottery#lottery'
+  get    'lottery/'          => 'lottery#index'
   get    'lottery/student'   => 'lottery#student'
   get    'lottery/classroom' => 'lottery#classroom'
   get    'lottery/result'    => 'lottery#result'
