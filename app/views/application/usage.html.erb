@@ -8,12 +8,12 @@
 <section>
 <h2 class="section-title">入場管理</h2>
 <p class="section-text">入場時に学生証裏のバーコードを読んで入場者を記録する機能です。<%= link_to '学生証スキャナ', students_scan_path %>を開いた状態でバーコードリーダーから学籍番号を入力してください。</p>
-<p class="section-text">認証に用いるデータベースをあらかじめ登録する必要があります(<%= link_to '全体設定', current_admin %>)</p>
+<p class="section-text">認証に用いるデータベースをあらかじめ登録する必要があります。設定は<%= link_to '全体設定', current_admin %>から行うことができます。</p>
 </section>
 
 <section>
 <h2 class="section-title">抽選</h2>
-<p class="section-text">来場者の中からルーレットで1件抽出します</p>
+<p class="section-text">来場者の中から<%= link_to 'ルーレット', lottery_path %>で1人または1クラスずつ抽出します。</p>
 </section>
 
 
