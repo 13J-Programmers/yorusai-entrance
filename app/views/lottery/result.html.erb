@@ -4,7 +4,7 @@
 <div class="text-center">
   <h2>当選番号</h2>
   <table class="table table-striped">
-    <% @winners.in_groups_of(3).to_a.each do | numbers | %>
+    <% @winners.each_slice(3) do |numbers| %>
       <tr>
         <% numbers.each do |number| %>
           <td><%= number %></td>
@@ -19,7 +19,7 @@
 <div class="text-center">
   <h2>当選クラス</h2>
   <table class="table table-striped">
-    <% @classes.in_groups_of(3).to_a.each do | ids | %>
+    <% @classes.each_slice(3) do |ids| %>
       <tr>
         <% ids.each do |id| %>
           <td><%= id %></td>
