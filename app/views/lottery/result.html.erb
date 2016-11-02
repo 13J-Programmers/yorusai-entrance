@@ -3,28 +3,40 @@
 <!-- students -->
 <div class="text-center">
   <h2>当選番号</h2>
-  <table class="table table-striped">
-    <% @winners.in_groups_of(3) do |numbers| %>
-      <tr>
-        <% numbers.each do |number| %>
-          <td><%= number %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </table>
+  <% if @winners.empty? %>
+    <div>
+      <p class="info spacing-ty">当選番号はまだありません</p>
+    </div>
+  <% else %>
+    <table class="table table-striped">
+      <% @winners.in_groups_of(3) do |numbers| %>
+        <tr>
+          <% numbers.each do |number| %>
+            <td><%= number %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
 </div>
 
 <div class="spacing-sm"></div>
 
 <div class="text-center">
   <h2>当選クラス</h2>
-  <table class="table table-striped">
-    <% @classes.in_groups_of(3) do |ids| %>
-      <tr>
-        <% ids.each do |id| %>
-          <td><%= id %></td>
+  <% if @classes.empty? %>
+    <div>
+      <p class="info spacing-ty">当選クラスはまだありません</p>
+    </div>
+  <% else %>
+      <table class="table table-striped">
+        <% @classes.in_groups_of(3) do |ids| %>
+          <tr>
+            <% ids.each do |id| %>
+              <td><%= id %></td>
+            <% end %>
+          </tr>
         <% end %>
-      </tr>
-    <% end %>
-  </table>
+      </table>
+  <% end %>
 </div>

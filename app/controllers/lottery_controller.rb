@@ -27,12 +27,6 @@ class LotteryController < ApplicationController
 
   def result
     @winners = Student.where(elected: true).order(:elected_at).pluck(:student_id)
-    if @winners.empty?
-      # flash[:info] = "当選番号はまだありません"
-    end
     @classes = Classroom.where(elected: true).order(:updated_at).pluck(:class_id)
-    if @classes.empty?
-      # flash[:info] = "当選クラスはまだありません"
-    end
   end
 end
