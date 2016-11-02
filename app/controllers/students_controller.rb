@@ -118,7 +118,7 @@ class StudentsController < ApplicationController
     if @winners.empty?
       # flash[:info] = "当選番号はまだありません"
     end
-    @classes = Classroom.where(elected: true).order(:elected_at).pluck(:class_id)
+    @classes = Classroom.where(elected: true).order(:updated_at).pluck(:class_id)
     if @classes.empty?
       # flash[:info] = "当選クラスはまだありません"
     end
