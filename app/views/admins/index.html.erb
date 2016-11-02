@@ -1,8 +1,23 @@
-
 <h1>管理者一覧</h1>
+    <p>登録済みの管理者一覧ページです。管理者の追加および削除は<%= link_to 'こちら', current_admin %>。</p>
 
-<ul class="admins">
-  <% @admins.each do |admin| %>
-    <li><%= admin.name %></li>
-  <% end %>
-</ul>
+<hr>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>管理者ユーザ名</th>
+      <th>メールアドレス</th>
+      <th>最終更新日時</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @admins.each do |admin| %>
+    <tr>
+      <td><%= admin.name %></td>
+      <td><%= admin.email %></td>
+      <td><%= admin.updated_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
