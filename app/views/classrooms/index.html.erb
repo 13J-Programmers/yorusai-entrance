@@ -1,8 +1,14 @@
-
 <h1>クラス一覧</h1>
+<p>　登録されたクラス一覧です。</p>
 
-<ul class="classrooms">
-  <% @classrooms.each do |classroom| %>
-    <li><%= classroom.class_id %></li>
-  <% end %>
-</ul>
+<div class="classrooms text-center spacing-sm">
+  <table class="table">
+    <% @classrooms.in_groups_of(5).to_a.each do | grade | %>
+      <tr>
+        <% grade.each do | classroom | %>
+          <td><%= classroom.class_id %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>
