@@ -1,4 +1,6 @@
 class ClassroomsController < ApplicationController
+  before_action :logged_in_admin
+
   def index
     @classrooms = Classroom.all
   end
