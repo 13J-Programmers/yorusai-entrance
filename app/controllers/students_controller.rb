@@ -60,6 +60,7 @@ class StudentsController < ApplicationController
 
   def reset_elected
     Student.update_all(elected: false)
+    Student.update_all(elected_at: nil)
     # flash[:success] = "Elected flag has been reset."
     flash[:success] = "抽選記録が正常にリセットされました"
     redirect_back(fallback_location: root_path)
@@ -67,6 +68,7 @@ class StudentsController < ApplicationController
 
   def reset_attended
     Student.update_all(attended: false)
+    Student.update_all(attended_at: nil)
     # flash[:success] = "Attended flag has been reset."
     flash[:success] = "入場記録が正常にリセットされました"
     redirect_back(fallback_location: root_path)

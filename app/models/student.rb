@@ -5,6 +5,13 @@ class Student < ApplicationRecord
     elsif self.grade.between?(3, 5)
       self.class_id = nil
     end
+
+    if self.attended.blank?
+      self.attended_at = nil
+    end
+    if self.elected.blank?
+      self.elected_at = nil
+    end
   end
 
   # student_id
