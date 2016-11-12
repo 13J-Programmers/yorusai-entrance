@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get    'login'    => 'sessions#new'
   post   'login'    => 'sessions#create'
   delete 'logout'   => 'sessions#destroy'
-  post   'settings' => 'admins#general_settings', as: :general_settings
 
   resources :students, only: [:index, :new, :create, :destroy]
   get    'students/scan'             => 'students#scan'
