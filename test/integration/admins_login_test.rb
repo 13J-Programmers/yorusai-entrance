@@ -2,7 +2,8 @@ require 'test_helper'
 
 class AdminsLoginTest < ActionDispatch::IntegrationTest
   def setup
-    @admin = admins(:admin)
+    @name = "admin"
+    @password = "password"
   end
 
   test "should reject invalid signin" do
@@ -18,7 +19,7 @@ class AdminsLoginTest < ActionDispatch::IntegrationTest
     https!
     get login_url
     post login_path, params: {
-      session: { name: "admin", password: "password", password_confirmation: "password" }
+      session: { name: @name, password: @password, password_confirmation: @password }
     }
     assert_not flash[:danger]
     assert redirect?
