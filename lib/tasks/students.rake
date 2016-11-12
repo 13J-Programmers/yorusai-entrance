@@ -9,6 +9,7 @@ namespace :students do
     100.times do
       student = Student.offset(rand(Student.count)).first
       student.attended = true
+      student.attended_at = Time.zone.now
       student.save
     end
   end

@@ -28,7 +28,7 @@ class StudentsController < ApplicationController
   def update
     if @student = Student.find_by(student_id: params[:student][:student_id])
       @student.attended = "true"
-      @student.attended_at = DateTime.current()
+      @student.attended_at = Time.zone.now
       @student.save
       # flash[:success] = "No.#{@student.student_id}を登録しました！夜祭にようこそ！"
       flash[:success] = "登録しました！#{@student.student_id}さん、夜祭にようこそ！"
@@ -74,10 +74,11 @@ class StudentsController < ApplicationController
 
   def attend_at_random
     n = (params[:time]) ? params[:time].to_i : 100
-    100.times do
+    n.times do
       student = Student.where(attended: false).offset(rand(Student.count)).first
       next if student.nil?
       student.attended = true
+      student.attended_at = Time.zone.now
       student.save
     end
     # flash[:success] = "Some students have been attended."

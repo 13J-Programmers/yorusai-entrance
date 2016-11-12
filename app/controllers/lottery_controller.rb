@@ -11,7 +11,7 @@ class LotteryController < ApplicationController
       flash.now[:danger] = "抽選対象がありません。入場処理を行ってください"
     else
       @winner.elected = true;
-      @winner.elected_at = DateTime.current()
+      @winner.elected_at = Time.zone.now
       @winner.save
     end
   end
