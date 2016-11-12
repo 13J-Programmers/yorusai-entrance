@@ -204,59 +204,6 @@
   </div>
 </div>
 
-
-<div class="row">
-  <div class="col-md-6">
-
-    <!-- Admin model -->
-    <% if @admin.name == "admin" %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Admins Database</h3>
-      </div>
-
-      <div class="panel-body">
-        管理者は、学生・クラスのデータベースの閲覧・変更を行うことができます。<br>
-        <%= link_to '管理者一覧', admins_path %>
-      </div>
-
-      <ul class="list-group">
-        <li class="list-group-item">
-          <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /admin/:id/new %>
-            <%= label_tag 'command', '管理者の追加' %>
-            <p>
-              指定した名前の管理者を作成します。初期パスワードはランダムな文字列で設定されるので、
-              ログイン後に必ずパスワードの変更を行ってください。
-            </p>
-            <div class="input-group">
-              <%= text_field_tag 'command', '', class: "form-control" %>
-              <span class="input-group-btn">
-                <%= submit_tag 'Create', class: 'btn btn-primary', disabled: true %>
-              </span>
-            </div>
-          <% end %>
-        </li>
-        <li class="list-group-item">
-          <%= form_tag(general_settings_path) do %> <%# <- todo: change path like /admin/:id/destroy %>
-            <%= label_tag 'command', '管理者の削除' %>
-            <p>
-              指定した管理者の削除を行います。注意：admin という名前の管理者は削除できません。
-            </p>
-            <div class="input-group">
-              <%= text_field_tag 'command', '', class: "form-control" %>
-              <span class="input-group-btn">
-                <%= submit_tag 'Delete', class: 'btn btn-danger', disabled: true %>
-              </span>
-            </div>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-    <% end %>
-
-  </div>
-</div>
-
 <script>
   $('#student_grade').change(function () {
     var grade = $(this).val();
