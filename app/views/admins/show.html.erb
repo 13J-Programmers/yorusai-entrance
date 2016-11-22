@@ -38,13 +38,8 @@
               指定した学生の追加を行います。
             </p>
             <div class="form-group">
-              <label>学年</label>
-              <%= select_tag 'student[grade]', options_for_select({ "1年" => "1", "2年" => "2", "3年" => "3", "4年" => "4", "5年" => "5" }), prompt: "学年", class: "form-control", style: "width: 100px" %>
-              <label>クラス</label>
-              <div class="input-group">
-                <%= select_tag 'student[class_id]', options_for_select({ "1組" => "1", "2組" => "2", "3組" => "3", "4組" => "4", "5組" => "5" }), prompt: "組", class: "form-control", style: "width: 100px" %>
-                <%= select_tag 'student[dept]',     options_for_select({ "M科" => "M", "E科" => "E", "S科" => "S", "J科" => "J", "C科" => "C" }), prompt: "学科", class: "form-control", style: "width: 100px" %>
-              </div>
+              <label>所属</label>
+              <%= select_tag 'student[classroom]', options_for_select(@classrooms.order(grade: :asc).map(&:abbr)), class: "form-control", style: "width: 100px" %>
             </div>
             <div class="input-group">
               <%= text_field_tag 'student[student_id]', '', class: "form-control", placeholder: "学籍番号" %>
