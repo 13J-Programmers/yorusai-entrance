@@ -13,43 +13,11 @@
         <%= f.text_field :student_id, onkeydown: "return key_down(event.keyCode);", class: "form-control" %>
       </div>
       <div class="form-group">
-        <label>学年</label>
-        <%= select_tag 'student[grade]', options_for_select({ "1年" => "1", "2年" => "2", "3年" => "3", "4年" => "4", "5年" => "5" }), prompt: "学年", class: "form-control", style: "width: 100px" %>
-        <label>クラス</label>
-        <div class="input-group">
-          <%= select_tag 'student[class_id]', options_for_select({ "1組" => "1", "2組" => "2", "3組" => "3", "4組" => "4", "5組" => "5" }), prompt: "組", class: "form-control", style: "width: 100px" %>
-          <%= select_tag 'student[dept]',     options_for_select({ "M科" => "M", "E科" => "E", "S科" => "S", "J科" => "J", "C科" => "C" }), prompt: "学科", class: "form-control", style: "width: 100px" %>
-        </div>
+        <label>所属</label>
+        <%= select_tag 'student[classroom]', options_for_select(@classrooms.order(grade: :asc).map(&:abbr)), class: "form-control", style: "width: 100px" %>
       </div>
 
       <%= f.submit "Submit", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
-
-<script>
-  $('#student_grade').change(function () {
-    var grade = $(this).val();
-    switch (grade) {
-      case "1":
-      case "2":
-        $('#student_class_id').prop('disabled', false);
-        $('#student_dept').prop('disabled', true);
-        break;
-      case "3":
-      case "4":
-      case "5":
-        $('#student_class_id').prop('disabled', true);
-        $('#student_dept').prop('disabled', false);
-        break;
-      default:
-        $('#student_class_id').prop('disabled', true);
-        $('#student_dept').prop('disabled', true);
-    }
-  });
-
-  $(function () {
-    // start script
-    $('#student_grade').trigger('change');
-  })
-</script>

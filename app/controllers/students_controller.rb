@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
     @grade = (params[:grade].blank?) ? 1 : params[:grade].to_i
     raise "grade must be between 1..5" unless @grade.between?(1, 5)
 
-    @students = Student.where(grade: @grade)
+    @classrooms = Classroom.where(grade: @grade)
   end
 
   def scan
@@ -13,10 +13,15 @@ class StudentsController < ApplicationController
 
   def new
     @student = Student.new
+    @classrooms = Classroom.all
   end
 
   def create
-    @student = Student.new(student_params)
+    classrooms = Classroom.all.map { |classroom| [classroom.abbr, classroom] }.to_h
+    option = {
+      classroom: classrooms[params[:student][:classroom]]
+    }
+    @student = Student.new(student_params.merge(option))
     if @student.save
       flash[:success] = "Successfully created!"
       redirect_to students_url
@@ -90,6 +95,6 @@ class StudentsController < ApplicationController
 
   private
     def student_params
-      params.require(:student).permit(:student_id, :grade, :dept, :class_id, :attended, :elected)
+      params.require(:student).permit(:student_id, :attended, :elected)
     end
 end
