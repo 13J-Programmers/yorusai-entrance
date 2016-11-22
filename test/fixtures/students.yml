@@ -7,8 +7,7 @@
 <%       student_id = sprintf("%02d%1d%02d", digit, sub, num) %>
 student_<%= student_id %>:
   student_id: <%= student_id %>
-  class_id: <%= sub %>
-  grade: <%= Student.digit_to_grade(digit) %>
+  classroom: classroom_<%= "#{digit}#{sub}" %>
 <%     end %>
 <%   end %>
 <% end %>
@@ -22,7 +21,7 @@ student_<%= student_id %>:
 <%       student_id = sprintf("%02d%1d%02d", digit, sub, num) %>
 student_<%= student_id %>:
   student_id: <%= student_id %>
-  dept: <%= dept %>
+  classroom: classroom_<%= "#{digit}#{sub}" %>
 <%     end %>
 <%   end %>
 <% end %>
