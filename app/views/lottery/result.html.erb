@@ -33,7 +33,7 @@
       <% @classes.in_groups_of(3) do |row| %>
         <tr>
           <% row.each do |classroom| %>
-            <td><%= classroom&.abbr %></td>
+            <td><%= classroom %></td>
           <% end %>
         </tr>
       <% end %>
