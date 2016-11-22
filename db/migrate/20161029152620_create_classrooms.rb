@@ -1,7 +1,7 @@
 class CreateClassrooms < ActiveRecord::Migration[5.0]
   def change
     create_table :classrooms do |t|
-      t.string :grade
+      t.integer :grade
       t.string :classname
       t.boolean :elected, null: false, default: false
 

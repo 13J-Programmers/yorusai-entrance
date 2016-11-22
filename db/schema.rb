@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20161112104838) do
   end
 
   create_table "classrooms", force: :cascade do |t|
-    t.string   "grade"
+    t.integer  "grade"
     t.string   "classname"
     t.boolean  "elected",    default: false, null: false
     t.datetime "created_at",                 null: false

@@ -37,7 +37,7 @@ end
 20.times do
   student = Student.offset(rand(Student.count)).first
   grade = student.classroom.grade
-  next if grade.to_i <= 2
+  next if grade <= 2
   student.classroom = Classroom.find_by(grade: grade, classname: %w(M E S J C)[rand(5)])
   student.save
 end
