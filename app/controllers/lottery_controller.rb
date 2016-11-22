@@ -29,6 +29,6 @@ class LotteryController < ApplicationController
 
   def result
     @winners = Student.where(elected: true).order(:elected_at).pluck(:student_id)
-    @classes = Classroom.where(elected: true).order(:updated_at).pluck(:class_id)
+    @classes = Classroom.where(elected: true).order(:updated_at)
   end
 end

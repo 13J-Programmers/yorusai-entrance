@@ -29,14 +29,14 @@
       <p class="info spacing-ty">当選クラスはまだありません</p>
     </div>
   <% else %>
-      <table class="table table-striped">
-        <% @classes.in_groups_of(3) do |ids| %>
-          <tr>
-            <% ids.each do |id| %>
-              <td><%= id %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      </table>
+    <table class="table table-striped">
+      <% @classes.in_groups_of(3) do |row| %>
+        <tr>
+          <% row.each do |classroom| %>
+            <td><%= classroom&.abbr %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
   <% end %>
 </div>
