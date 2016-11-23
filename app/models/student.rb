@@ -1,13 +1,9 @@
 require 'csv'
 
 class Student < ApplicationRecord
-  before_save do
-    if self.grade.between?(1, 2)
-      self.dept = nil
-    elsif self.grade.between?(3, 5)
-      self.class_id = nil
-    end
+  belongs_to :classroom
 
+  before_save do
     if self.attended.blank?
       self.attended_at = nil
     end
@@ -21,9 +17,6 @@ class Student < ApplicationRecord
     presence: true,
     uniqueness: true,
     format: { with: /\A[0-9][0-9][1-5][0-9][0-9]\z/ }
-
-  # grade
-  validates :grade, presence: true
 
   #
   # culculate student_id's first 2 digit from grade

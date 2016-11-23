@@ -3,10 +3,10 @@
 
 <div class="classrooms text-center spacing-sm">
   <table class="table">
-    <% @classrooms.in_groups_of(5).to_a.each do | grade | %>
+    <% @classrooms.map(&:abbr).in_groups_of(5) do |grade| %>
       <tr>
-        <% grade.each do | classroom | %>
-          <td><%= classroom.class_id %></td>
+        <% grade.each do |classroom| %>
+          <td><%= classroom %></td>
         <% end %>
       </tr>
     <% end %>

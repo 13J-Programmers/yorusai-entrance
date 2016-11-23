@@ -9,6 +9,8 @@ class ClassroomsController < ApplicationController
     @classroom = Classroom.new(classroom_params)
     if @classroom.save
       flash[:success] = "Successfully created!"
+    else
+      flash[:danger] = "An error has been occured!"
     end
     redirect_back(fallback_location: root_path)
   end
@@ -18,10 +20,12 @@ class ClassroomsController < ApplicationController
   end
 
   def destroy
-    classroom = Classroom.find_by(class_id: params[:class_id])
-    unless classroom.nil?
+    classroom = Classroom.find_by_abbr(params[:classroom_abbr])
+    if classroom.nil?
+      flash[:danger] = "An error has been occured!"
+    else
       classroom.destroy
-      flash[:success] = "Classroom #{classroom.class_id} have been deleted."
+      flash[:success] = "Classroom #{classroom.abbr} have been deleted."
     end
     redirect_back(fallback_location: root_path)
   end
@@ -42,6 +46,6 @@ class ClassroomsController < ApplicationController
 
   private
     def classroom_params
-      params.require(:classroom).permit(:class_id, :elected)
+      params.require(:classroom).permit(:grade, :classname, :elected)
     end
 end

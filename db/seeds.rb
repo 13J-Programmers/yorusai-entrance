@@ -10,12 +10,30 @@
 Student.destroy_all
 Classroom.destroy_all
 
+# --- create classrooms ---
+
+(1..2).each do |grade|
+  (1..5).each do |sub|
+    Classroom.create(grade: grade, classname: sub)
+  end
+end
+(3..5).each do |grade|
+  %w(M E S J C).each do |sub|
+    Classroom.create(grade: grade, classname: sub)
+  end
+end
+Classroom.create(grade: 6, classname: "専攻科")
+
+
+# --- create students ---
+
 # grade 1..2
 (15..16).each do |digit|
   (1..5).each do |sub|
+    classroom = Classroom.find_by(grade: Student.digit_to_grade(digit), classname: sub)
     (1..rand(35..40)).each do |num|
       student_id = sprintf("%02d%1d%02d", digit, sub, num)
-      Student.create(student_id: student_id, grade: Student.digit_to_grade(digit), class_id: sub)
+      classroom.students.create(student_id: student_id)
     end
   end
 end
@@ -24,9 +42,10 @@ end
 (12..14).each do |digit|
   (1..5).each do |sub|
     dept = %w(M E S J C)[sub-1]
+    classroom = Classroom.find_by(grade: Student.digit_to_grade(digit), classname: dept)
     (1..rand(35..40)).each do |num|
       student_id = sprintf("%02d%1d%02d", digit, sub, num)
-      Student.create(student_id: student_id, grade: Student.digit_to_grade(digit), dept: dept)
+      classroom.students.create(student_id: student_id)
     end
   end
 end
@@ -34,21 +53,21 @@ end
 # move to other dept
 20.times do
   student = Student.offset(rand(Student.count)).first
-  next if student.grade <= 2
-  student.dept = %w(M E S J C)[rand(5)]
+  grade = student.classroom.grade
+  next if grade <= 2
+  student.classroom = Classroom.find_by(grade: grade, classname: %w(M E S J C)[rand(5)])
   student.save
 end
 
-(1..2).each do |grade|
-  (1..5).each do |sub|
-    class_id = "#{grade}-#{sub}"
-    Classroom.create(class_id: class_id, elected: false)
-  end
-end
+# grade 6..7 (Advanced Cource)
+(10..11).each do |digit|
+  classroom = Classroom.find_by(grade: 6)
 
-(3..5).each do |grade|
-  %w(M E S J C).each do |sub|
-    class_id = "#{grade}#{sub}"
-    Classroom.create(class_id: class_id, elected: false)
+  20.times do
+    sub = rand(1..5)
+    num = rand(1..40)
+    student_id = sprintf("%02d%1d%02d", digit, sub, num)
+    next if classroom.students.find_by(student_id: student_id)
+    classroom.students.create(student_id: student_id)
   end
 end

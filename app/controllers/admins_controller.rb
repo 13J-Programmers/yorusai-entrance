@@ -8,6 +8,7 @@ class AdminsController < ApplicationController
 
   def show
     @admin = Admin.find(params[:id])
+    @classrooms = Classroom.all
   end
 
   def edit
