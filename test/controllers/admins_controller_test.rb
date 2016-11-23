@@ -27,6 +27,29 @@ class AdminsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should require authorization before patch admin" do
+    patch admin_url(@admin)
+    assert_redirected_to login_url
+  end
+
+  test "should patch admin (password update)" do
+    new_password = "spam ham egg"
+
+    login
+    patch admin_url(@admin), params: {
+      admin: { password: new_password, password_confirmation: new_password }
+    }
+    assert redirect?
+    assert flash[:success]
+
+    logout
+    assert_redirected_to root_url
+
+    login(password: new_password)
+    assert redirect?
+    assert flash[:success]
+  end
+
   test "should require authorization before get edit_admin" do
     get edit_admin_url(@admin)
     assert_redirected_to login_url
