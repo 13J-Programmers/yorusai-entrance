@@ -38,13 +38,8 @@
               指定した学生の追加を行います。
             </p>
             <div class="form-group">
-              <label>学年</label>
-              <%= select_tag 'student[grade]', options_for_select({ "1年" => "1", "2年" => "2", "3年" => "3", "4年" => "4", "5年" => "5" }), prompt: "学年", class: "form-control", style: "width: 100px" %>
-              <label>クラス</label>
-              <div class="input-group">
-                <%= select_tag 'student[class_id]', options_for_select({ "1組" => "1", "2組" => "2", "3組" => "3", "4組" => "4", "5組" => "5" }), prompt: "組", class: "form-control", style: "width: 100px" %>
-                <%= select_tag 'student[dept]',     options_for_select({ "M科" => "M", "E科" => "E", "S科" => "S", "J科" => "J", "C科" => "C" }), prompt: "学科", class: "form-control", style: "width: 100px" %>
-              </div>
+              <label>所属</label>
+              <%= select_tag 'student[classroom_abbr]', options_for_select(@classrooms.order(grade: :asc).map(&:abbr)), class: "form-control", style: "width: 100px" %>
             </div>
             <div class="input-group">
               <%= text_field_tag 'student[student_id]', '', class: "form-control", placeholder: "学籍番号" %>
@@ -144,12 +139,9 @@
             <p>
               指定したクラスの追加を行います。
             </p>
-            <div class="input-group">
-              <%= text_field_tag 'classroom[class_id]', '', class: "form-control", placeholder: "クラス名（例：1-2, 3M）" %>
-              <span class="input-group-btn">
-                <%= submit_tag 'Create', class: 'btn btn-primary', disabled: false %>
-              </span>
-            </div>
+            <%= text_field_tag 'classroom[grade]', '', class: "form-control", placeholder: "学年（例：1,2,3,4,5）" %>
+            <%= text_field_tag 'classroom[classname]', '', class: "form-control", placeholder: "クラス名（例：1,2年は1~5、3,4,5年はM~C）" %>
+            <%= submit_tag 'Create', class: 'btn btn-primary', disabled: false %>
           <% end %>
         </li>
         <li class="list-group-item">
@@ -173,7 +165,7 @@
               指定したクラスの削除を行います。
             </p>
             <div class="input-group">
-              <%= text_field_tag 'class_id', '', class: "form-control", placeholder: "クラス名（例：1-2, 3M）" %>
+              <%= text_field_tag 'classroom_abbr', '', class: "form-control", placeholder: "クラス名（例：1-2, 3M）" %>
               <span class="input-group-btn">
                 <%= submit_tag 'Delete', class: 'btn btn-danger', disabled: false %>
               </span>
@@ -203,30 +195,3 @@
 
   </div>
 </div>
-
-<script>
-  $('#student_grade').change(function () {
-    var grade = $(this).val();
-    switch (grade) {
-      case "1":
-      case "2":
-        $('#student_class_id').prop('disabled', false);
-        $('#student_dept').prop('disabled', true);
-        break;
-      case "3":
-      case "4":
-      case "5":
-        $('#student_class_id').prop('disabled', true);
-        $('#student_dept').prop('disabled', false);
-        break;
-      default:
-        $('#student_class_id').prop('disabled', true);
-        $('#student_dept').prop('disabled', true);
-    }
-  });
-
-  $(function () {
-    // start script
-    $('#student_grade').trigger('change');
-  })
-</script>

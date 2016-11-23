@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
     @grade = (params[:grade].blank?) ? 1 : params[:grade].to_i
     raise "grade must be between 1..5" unless @grade.between?(1, 5)
 
-    @students = Student.where(grade: @grade)
+    @classrooms = Classroom.where(grade: @grade)
   end
 
   def scan
@@ -13,10 +13,14 @@ class StudentsController < ApplicationController
 
   def new
     @student = Student.new
+    @classrooms = Classroom.all
   end
 
   def create
-    @student = Student.new(student_params)
+    option = {
+      classroom: Classroom.find_by_abbr(params[:student][:classroom_abbr])
+    }
+    @student = Student.new(student_params.merge(option))
     if @student.save
       flash[:success] = "Successfully created!"
       redirect_to students_url
@@ -47,6 +51,8 @@ class StudentsController < ApplicationController
     if params[:student_id].present?
       student = Student.find_by(student_id: params[:student_id]).destroy
       flash[:success] = "Student #{student.student_id} have been deleted."
+    else
+      flash[:danger] = "An error has been occured!"
     end
     redirect_back(fallback_location: root_path)
   end
@@ -90,6 +96,6 @@ class StudentsController < ApplicationController
 
   private
     def student_params
-      params.require(:student).permit(:student_id, :grade, :dept, :class_id, :attended, :elected)
+      params.require(:student).permit(:student_id, :attended, :elected)
     end
 end
