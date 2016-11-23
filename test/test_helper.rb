@@ -7,4 +7,12 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def login(name: "admin", password: "password")
+    https!
+    get login_url
+    post login_path, params: {
+      session: { name: name, password: password, password_confirmation: password }
+    }
+    follow_redirect!
+  end
 end
