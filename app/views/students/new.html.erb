@@ -14,6 +14,7 @@
       </div>
       <div class="form-group">
         <label>所属</label>
+        <% @classrooms ||= Classroom.all %>
         <%= select_tag 'student[classroom_abbr]', options_for_select(@classrooms.order(grade: :asc).map(&:abbr)), class: "form-control", style: "width: 100px" %>
       </div>
 
