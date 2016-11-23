@@ -51,6 +51,8 @@ class StudentsController < ApplicationController
     if params[:student_id].present?
       student = Student.find_by(student_id: params[:student_id]).destroy
       flash[:success] = "Student #{student.student_id} have been deleted."
+    else
+      flash[:danger] = "An error has been occured!"
     end
     redirect_back(fallback_location: root_path)
   end
