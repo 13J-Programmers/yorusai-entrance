@@ -40,9 +40,14 @@ class StudentsController < ApplicationController
   end
 
   def create_from_csv
-    n = Student.import(params[:file])
-    flash[:success] = "#{n}件のデータを登録しました。"
-    redirect_to current_admin
+    if params[:file].nil?
+      flash[:danger] = "CSVファイルが未選択です。"
+      redirect_back(fallback_location: root_path)
+    else
+      n = Student.import(params[:file])
+      flash[:success] = "#{n}件のデータを登録しました。"
+      redirect_to current_admin
+    end
   end
 
   def destroy
