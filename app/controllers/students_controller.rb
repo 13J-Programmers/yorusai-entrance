@@ -17,9 +17,8 @@ class StudentsController < ApplicationController
   end
 
   def create
-    classrooms = Classroom.all.map { |classroom| [classroom.abbr, classroom] }.to_h
     option = {
-      classroom: classrooms[params[:student][:classroom]]
+      classroom: Classroom.find_by_abbr(params[:student][:classroom_abbr])
     }
     @student = Student.new(student_params.merge(option))
     if @student.save
