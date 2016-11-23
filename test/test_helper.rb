@@ -13,6 +13,9 @@ class ActiveSupport::TestCase
     post login_path, params: {
       session: { name: name, password: password, password_confirmation: password }
     }
-    follow_redirect!
+  end
+
+  def logout
+    delete logout_url
   end
 end
