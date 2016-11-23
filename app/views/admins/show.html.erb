@@ -139,12 +139,9 @@
             <p>
               指定したクラスの追加を行います。
             </p>
-            <div class="input-group">
-              <%= text_field_tag 'classroom[class_id]', '', class: "form-control", placeholder: "クラス名（例：1-2, 3M）" %>
-              <span class="input-group-btn">
-                <%= submit_tag 'Create', class: 'btn btn-primary', disabled: false %>
-              </span>
-            </div>
+            <%= text_field_tag 'classroom[grade]', '', class: "form-control", placeholder: "学年（例：1,2,3,4,5）" %>
+            <%= text_field_tag 'classroom[classname]', '', class: "form-control", placeholder: "クラス名（例：1,2年は1~5、3,4,5年はM~C）" %>
+            <%= submit_tag 'Create', class: 'btn btn-primary', disabled: false %>
           <% end %>
         </li>
         <li class="list-group-item">
@@ -168,7 +165,7 @@
               指定したクラスの削除を行います。
             </p>
             <div class="input-group">
-              <%= text_field_tag 'class_id', '', class: "form-control", placeholder: "クラス名（例：1-2, 3M）" %>
+              <%= text_field_tag 'classroom_abbr', '', class: "form-control", placeholder: "クラス名（例：1-2, 3M）" %>
               <span class="input-group-btn">
                 <%= submit_tag 'Delete', class: 'btn btn-danger', disabled: false %>
               </span>

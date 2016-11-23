@@ -9,6 +9,8 @@ class ClassroomsController < ApplicationController
     @classroom = Classroom.new(classroom_params)
     if @classroom.save
       flash[:success] = "Successfully created!"
+    else
+      flash[:danger] = "An error has been occured!"
     end
     redirect_back(fallback_location: root_path)
   end
@@ -44,6 +46,6 @@ class ClassroomsController < ApplicationController
 
   private
     def classroom_params
-      params.require(:classroom).permit(:class_id, :elected)
+      params.require(:classroom).permit(:grade, :classname, :elected)
     end
 end
