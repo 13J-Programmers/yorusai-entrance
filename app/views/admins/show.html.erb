@@ -55,7 +55,7 @@
           <% end %>
         </li>
         <li class="list-group-item">
-          <%= form_tag(students_create_from_csv_path) do %>
+          <%= form_tag(students_create_from_csv_path, method: :post, multipart: :true) do %>
             <%= label_tag 'command', '学生一覧ファイルの読み込み' %>
             <p>
               CSVファイルから学生一覧を読み込んで、データベースに追加します。CSVファイルの形式については<%= link_to "こちら", '#' %>。
@@ -63,7 +63,7 @@
             <div class="input-group">
               <%= file_field_tag 'file' %>
               <span class="input-group-btn">
-                <%= submit_tag 'Create', class: 'btn btn-primary', disabled: true %>
+                <%= submit_tag 'Create', class: 'btn btn-primary' %>
               </span>
             </div>
           <% end %>
