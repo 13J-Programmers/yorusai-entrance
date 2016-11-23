@@ -5,13 +5,19 @@ class Classroom < ApplicationRecord
   validates :classname, presence: true
 
   def abbr
-    case self.grade
+    Classroom.abbr(grade: self.grade, classname: self.classname)
+  end
+
+  def self.abbr(grade:, classname:)
+    case grade
     when 1..2
-      "#{self.grade}-#{self.classname}" # => 1-1 1-2 ...
+      "#{grade}-#{classname}" # => 1-1 1-2 ...
     when 3..5
-      "#{self.grade}#{self.classname}" # => 3M 3E ...
+      "#{grade}#{classname}" # => 3M 3E ...
+    when 6
+      "#{classname}" # => 専攻科
     else
-      raise 'Classroom column "grade" is expected to be integer and be between 1 and 5'
+      raise 'Classroom column "grade" is expected to be integer and be between 1 and 6'
     end
   end
 

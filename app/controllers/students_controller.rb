@@ -3,7 +3,7 @@ class StudentsController < ApplicationController
 
   def index
     @grade = (params[:grade].blank?) ? 1 : params[:grade].to_i
-    raise "grade must be between 1..5" unless @grade.between?(1, 5)
+    raise "grade must be between 1..6" unless @grade.between?(1, 6)
 
     @classrooms = Classroom.where(grade: @grade)
   end

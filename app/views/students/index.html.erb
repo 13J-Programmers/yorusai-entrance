@@ -12,6 +12,9 @@
       <%= link_to "#{grade}年", students_path(grade: grade) %>
     </li>
   <% end %>
+  <li role="presentation" class="<%= (@grade == 6) ? "active" : "" %>">
+    <%= link_to "専攻科", students_path(grade: 6) %>
+  </li>
 </ul>
 
 <br>
