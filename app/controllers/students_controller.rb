@@ -40,7 +40,9 @@ class StudentsController < ApplicationController
   end
 
   def create_from_csv
-    # todo:
+    n = Student.import(params[:file])
+    flash[:success] = "#{n}件のデータを登録しました。"
+    redirect_to current_admin
   end
 
   def destroy
