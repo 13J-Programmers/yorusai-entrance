@@ -50,19 +50,20 @@ class StudentsController < ApplicationController
     if params[:file].nil?
       flash[:danger] = "CSVファイルが未選択です。"
       redirect_back(fallback_location: root_path)
-    else
-      n = 0;
-      CSV.foreach(params[:file].path, headers: true) do |row|
-        classroom = Classroom.find_by(classname: row["classname"], grade: row["grade"])
-        if classroom.nil?
-          flash[:danger] = "存在しないクラスが含まれます。学年:#{row['grade']} クラス:#{row['classname']}"
-        else
-          n = import(row["student_id"], classroom.id, n)
-        end
-      end
-      flash[:success] = "#{n}件のデータを登録しました。"
-      redirect_to current_admin
+      return
     end
+
+    n = 0;
+    CSV.foreach(params[:file].path, headers: true) do |row|
+      classroom = Classroom.find_by(classname: row["classname"], grade: row["grade"])
+      if classroom.nil?
+        flash[:danger] = "存在しないクラスが含まれます。学年:#{row['grade']} クラス:#{row['classname']}"
+      else
+        n = import(row["student_id"], classroom.id, n)
+      end
+    end
+    flash[:success] = "#{n}件のデータを登録しました。"
+    redirect_to current_admin
   end
 
   def destroy
