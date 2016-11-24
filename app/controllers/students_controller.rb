@@ -1,3 +1,5 @@
+require 'csv'
+
 class StudentsController < ApplicationController
   before_action :logged_in_admin
 
@@ -51,7 +53,23 @@ class StudentsController < ApplicationController
   end
 
   def create_from_csv
-    # todo:
+    if params[:file].nil?
+      flash[:danger] = "CSVファイルが未選択です。"
+      redirect_back(fallback_location: root_path)
+      return
+    end
+
+    n = 0;
+    CSV.foreach(params[:file].path, headers: true) do |row|
+      classroom = Classroom.find_by(classname: row["classname"], grade: row["grade"])
+      if classroom.nil?
+        flash[:danger] = "存在しないクラスが含まれます。学年:#{row['grade']} クラス:#{row['classname']}"
+      else
+        import(row["student_id"], classroom.id) && n += 1
+      end
+    end
+    flash[:success] = "#{n}件のデータを登録しました。"
+    redirect_to current_admin
   end
 
   def destroy
@@ -102,6 +120,14 @@ class StudentsController < ApplicationController
   end
 
   private
+    def import(student_id, classroom_id)
+      student = Student.find_by(student_id: student_id)
+      if student.nil?
+        student = Student.new(student_id: student_id, classroom_id: classroom_id)
+        return student.save!
+      end
+    end
+
     def student_params
       params.require(:student).permit(:student_id, :attended, :elected)
     end
