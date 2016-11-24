@@ -6,10 +6,16 @@ namespace :students do
 
   desc "attend students at random"
   task :attend_at_random => :environment do
+    def rand_time(range)
+      from = range.begin.to_f
+      to   = range.end.to_f
+      Time.at(rand * (to - from) + from)
+    end
+
     100.times do
       student = Student.offset(rand(Student.count)).first
       student.attended = true
-      student.attended_at = Time.zone.now
+      student.attended_at = rand_time(2.hours.ago..Time.zone.now)
       student.save
     end
   end

@@ -86,7 +86,7 @@ class StudentsController < ApplicationController
       student = Student.where(attended: false).offset(rand(Student.count)).first
       next if student.nil?
       student.attended = true
-      student.attended_at = Time.zone.now
+      student.attended_at = rand_time(2.hours.ago..Time.zone.now)
       student.save
     end
     # flash[:success] = "Some students have been attended."
@@ -97,5 +97,11 @@ class StudentsController < ApplicationController
   private
     def student_params
       params.require(:student).permit(:student_id, :attended, :elected)
+    end
+
+    def rand_time(range)
+      from = range.begin.to_f
+      to   = range.end.to_f
+      Time.at(rand * (to - from) + from)
     end
 end
