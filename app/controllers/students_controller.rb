@@ -59,7 +59,7 @@ class StudentsController < ApplicationController
       if classroom.nil?
         flash[:danger] = "存在しないクラスが含まれます。学年:#{row['grade']} クラス:#{row['classname']}"
       else
-        n = import(row["student_id"], classroom.id, n)
+        import(row["student_id"], classroom.id) && n += 1
       end
     end
     flash[:success] = "#{n}件のデータを登録しました。"
@@ -114,13 +114,12 @@ class StudentsController < ApplicationController
   end
 
   private
-    def import(student_id, classroom_id, registered)
+    def import(student_id, classroom_id)
       student = Student.find_by(student_id: student_id)
       if student.nil?
         student = Student.new(student_id: student_id, classroom_id: classroom_id)
-        student.save! && registered += 1
+        return student.save!
       end
-      return registered
     end
 
     def student_params
