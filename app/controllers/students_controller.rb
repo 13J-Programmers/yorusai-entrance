@@ -8,6 +8,13 @@ class StudentsController < ApplicationController
     @classrooms = Classroom.where(grade: @grade)
   end
 
+  def data
+    @classrooms = Classroom.all
+    render json: @classrooms,
+      :only => [:grade, :classname],
+      :include => {students: {only: [:student_id, :attended_at, :elected_at]}}
+  end
+
   def scan
   end
 

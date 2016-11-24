@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post   'students/reset_elected'    => 'students#reset_elected'
   post   'students/reset_attended'   => 'students#reset_attended'
   post   'students/attend_at_random' => 'students#attend_at_random'
+  get    'students/index.json'       => 'students#data'
 
   resources :classrooms, only: [:index, :create, :destroy]
   post   'classrooms/create_from_csv' => 'classrooms#create_from_csv'
