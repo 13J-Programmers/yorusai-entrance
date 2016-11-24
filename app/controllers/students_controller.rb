@@ -46,7 +46,6 @@ class StudentsController < ApplicationController
   end
 
   def create_from_csv
-    # todo: refactor
     if params[:file].nil?
       flash[:danger] = "CSVファイルが未選択です。"
       redirect_back(fallback_location: root_path)
