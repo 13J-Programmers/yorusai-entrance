@@ -1,0 +1,131 @@
+<h1>Graph</h1>
+<h2>Attendance Rate</h2>
+
+<svg id="chart"></svg>
+
+
+<style>
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+</style>
+
+<script>
+var margin = {top: 20, right: 20, bottom: 30, left: 50};
+var width = 960 - margin.left - margin.right;
+var height = 500 - margin.top - margin.bottom;
+
+var chart = d3.select("#chart")
+  .attr('width', width + margin.left + margin.right)
+  .attr('height', height + margin.top + margin.bottom)
+  .append('g')
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+
+d3.json("/students/data.json", function (jsonData) {
+  // console.log(jsonData);
+
+  var students = jsonData
+    .map(function (classroom) {
+      return classroom.students;
+    })
+    .reduce(function(a, b) { // flatten
+      return a.concat(b);
+    })
+
+  var attendedStudents = students
+    .filter(function (student) { // .attended?
+      return student.attended_at != null;
+    })
+    .map(function (student) { // coerce attended_at into Date
+      student.attended_at = new Date(student.attended_at)
+      return student
+    })
+    .sort(function (a, b) { // sort_by .attended_at
+      return a.attended_at - b.attended_at;
+    })
+    .map(function (student, index) {
+      student.accum = index + 1;
+      return student;
+    })
+
+  var x = d3.scaleTime()
+    .domain([
+      attendedStudents[0].attended_at,
+      attendedStudents[attendedStudents.length-1].attended_at
+    ])
+    .range([0, width])
+
+  var y = d3.scaleLinear()
+    .domain([0, students.length])
+    .range([height, 0])
+
+  // define the line
+  var attendanceRate = d3.line()
+    .x(function (datum) {
+      return x(new Date(datum.attended_at))
+    })
+    .y(function (datum) {
+      return y(datum.accum)
+    })
+
+  // draw line graph
+  chart.selectAll("path.line")
+    .data([attendedStudents])
+    .enter().append("path")
+      .attr('class', "line")
+      .attr('d', attendanceRate)
+
+  // axis
+  chart.append("g")
+    .call(d3.axisLeft(y))
+  chart.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+
+  // --- view helper ---
+
+  var focus = chart.append("g")
+    .attr("class", "focus")
+
+  focus.append("circle")
+    .attr("r", 4.5)
+
+  focus.append("text")
+    .attr("x", 9)
+    .attr("dy", ".35em")
+
+  chart.append("rect")
+    .attr("class", "overlay")
+    .attr("width", width)
+    .attr("height", height)
+    .on("mouseover", function () { focus.style("display", "inherit"); })
+    .on("mouseout",  function () { focus.style("display", "none"); })
+    .on("mousemove", function () {
+      var x0 = x.invert(d3.mouse(this)[0]);
+      var bisect = d3.bisector(function(d) { return d.attended_at; }).right
+      var i = bisect(attendedStudents, new Date(x0));
+
+      var d0 = attendedStudents[i - 1] || attendedStudents[i];
+      var d1 = attendedStudents[i];
+      var d = x0 - new Date(d0.attended_at) > new Date(d1.attended_at) - x0 ? d1 : d0;
+
+      focus.attr("transform", "translate(" + x(d.attended_at) + "," + y(d.accum) + ")");
+      focus.select("text").text(function () { return Math.round(d.accum * 1000 / students.length) / 10 + "%" });
+    });
+})
+
+</script>
