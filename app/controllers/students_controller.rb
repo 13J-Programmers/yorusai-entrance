@@ -17,6 +17,9 @@ class StudentsController < ApplicationController
       :include => {students: {only: [:student_id, :attended_at, :elected_at]}}
   end
 
+  def graph
+  end
+
   def scan
   end
 
