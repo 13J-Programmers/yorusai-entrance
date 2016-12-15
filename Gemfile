@@ -29,7 +29,7 @@ gem 'bcrypt', '~> 3.1.7'
 # Use bootstrap
 gem 'bootstrap-sass'
 # Use font-awesome
-gem 'font-awesome-sass'
+# gem 'font-awesome-sass'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
