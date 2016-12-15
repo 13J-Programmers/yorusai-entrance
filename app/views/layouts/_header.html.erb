@@ -3,25 +3,24 @@
   <div class="container-fluid">
     <ul class="nav navbar-nav navbar-right">
       <li><%= link_to root_path do %><i class="fa fa-home"></i>ホーム<% end %></li>
-		
       <% if logged_in? %>
-        <li><%= link_to "使い方", usage_path %></li>
-        <li><%= link_to "学生証スキャナ", students_scan_path %></li>
-        <li><%= link_to "学生一覧", students_path %></li>
-        <li><%= link_to "ルーレット", lottery_path %></li>
-        <li><%= link_to "当選番号", lottery_result_path %></li>
+        <li><%= link_to usage_path do %><i class="fa fa-book"></i>使い方<% end %></li>
+        <li><%= link_to students_scan_path do %><i class="fa fa-id-card-o"></i>学生証スキャナ<% end %></li>
+        <li><%= link_to students_path do %><i class="fa fa-users"></i>学生一覧<% end %></li>
+        <li><%= link_to lottery_path do %><i class="fa fa-child"></i>ルーレット<% end %></li>
+        <li><%= link_to lottery_result_path do %><i class="fa fa-list-ol"></i>当選番号<% end %></li>
         <!-- <li><%= link_to "Admins", admins_path %></li> -->
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">アカウント<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i>その他<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><%= link_to '全体設定', current_admin %></li>
-            <li><%= link_to 'アカウント設定', edit_admin_path(current_admin) %></li>
+            <li><%= link_to current_admin do %><i class="fa fa-sliders"></i>全体設定<% end %></li>
+            <li><%= link_to edit_admin_path(current_admin) do %><i class="fa fa-cog"></i>アカウント設定<% end %></li>
             <li role="separator" class="divider"></li>
-            <li><%= link_to 'ログアウト', logout_path, method: "delete" %></li>
+            <li><%= link_to logout_path, method: "delete" do %><i class="fa fa-sign-out"></i>ログアウト<% end %></li>
           </ul>
         </li>
       <% else %>
-        <li><%= link_to "ログイン", login_path %></li>
+        <li><%= link_to login_path do %><i class="fa fa-sign-in"></i>ログイン<% end %></li>
       <% end %>
     </ul>
   </div>
