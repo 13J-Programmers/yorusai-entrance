@@ -29,9 +29,14 @@ class StudentsController < ApplicationController
   end
 
   def create
-    option = {
-      classroom: Classroom.find_by_abbr(params[:student][:classroom_abbr])
-    }
+    classroom = Classroom.find_by_abbr(params[:student][:classroom_abbr])
+    if classroom.nil?
+      flash[:danger] = %{classroom #{params[:student][:classroom_abbr]} is not found.}
+      redirect_to students_url
+      return
+    end
+
+    option = { classroom: classroom }
     @student = Student.new(student_params.merge(option))
     if @student.save
       flash[:success] = "Successfully created!"
