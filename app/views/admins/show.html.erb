@@ -84,7 +84,7 @@
             <p>
               登録してある全学生の削除を行います。
             </p>
-            <%= submit_tag 'Delete all', class: 'btn btn-danger' %>
+            <%= submit_tag 'Delete all', class: 'btn btn-danger', data: { confirm: '全学生:削除してよろしいですか？' } %>
           <% end %>
         </li>
         <li class="list-group-item">
@@ -93,7 +93,7 @@
             <p>
               全学生の出席の記録を消します。
             </p>
-            <%= submit_tag 'Reset', class: 'btn btn-warning' %>
+            <%= submit_tag 'Reset', class: 'btn btn-warning', data: { confirm: '出席記録:リセットしてよろしいですか？' } %>
           <% end %>
         </li>
         <li class="list-group-item">
@@ -102,7 +102,7 @@
             <p>
               全学生の抽選に当たった記録を消します。
             </p>
-            <%= submit_tag 'Reset', class: 'btn btn-warning' %>
+            <%= submit_tag 'Reset', class: 'btn btn-warning', data: { confirm: '当選記録:リセットしてよろしいですか？' }  %>
           <% end %>
         </li>
         <% if Rails.env.development? %>
@@ -175,11 +175,11 @@
         </li>
         <li class="list-group-item">
           <%= form_tag(classrooms_path, method: :delete) do %>
-            <%= label_tag 'command', '全クラスの削除' %>
+            <%= label_tag 'command', '全クラスの削除'%>
             <p>
               登録してある全クラスの削除を行います。
             </p>
-            <%= submit_tag 'Delete all', class: 'btn btn-danger' %>
+            <%= submit_tag 'Delete all', class: 'btn btn-danger', data: { confirm: '全クラス:削除してよろしいですか？' } %>
           <% end %>
         </li>
         <li class="list-group-item">
@@ -188,7 +188,7 @@
             <p>
               全クラスの抽選に当たった記録を消します。
             </p>
-            <%= submit_tag 'Reset', class: 'btn btn-warning' %>
+            <%= submit_tag 'Reset', class: 'btn btn-warning', data: { confirm: 'クラス抽選記録:削除してよろしいですか？' } %>
           <% end %>
         </li>
       </ul>
