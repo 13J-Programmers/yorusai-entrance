@@ -20,7 +20,7 @@
 <br>
 
 <%
-students = @classrooms.map(&:students).map(&:to_a)
+students = @students
 
 # fill with nil to equalize each array len
 max_length = students.map(&:size).max

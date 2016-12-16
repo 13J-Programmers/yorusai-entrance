@@ -8,6 +8,9 @@ class StudentsController < ApplicationController
     raise "grade must be between 1..6" unless @grade.between?(1, 6)
 
     @classrooms = Classroom.where(grade: @grade)
+    @students = @classrooms.map do |classroom|
+      classroom.students.to_a.sort_by(&:student_id)
+    end
   end
 
   def data
