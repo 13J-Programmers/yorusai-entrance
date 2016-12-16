@@ -18,6 +18,7 @@ class StudentsController < ApplicationController
   end
 
   def graph
+    @type = (params[:type].blank?) ? "atd" : params[:type]
   end
 
   def scan
@@ -72,6 +73,11 @@ class StudentsController < ApplicationController
       end
     end
     flash[:success] = "#{n}件のデータを登録しました。"
+    redirect_to current_admin
+  end
+
+  def dump_from_csv
+    #todo
     redirect_to current_admin
   end
 

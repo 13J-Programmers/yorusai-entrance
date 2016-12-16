@@ -1,8 +1,17 @@
-<h1>Graph</h1>
-<h2>Attendance Rate</h2>
+<h1>グラフ</h1>
 
+<ul class="nav nav-pills">
+  <li role="presentation" class="<%= (@type == "atd") ? "active" : "" %>" id="atd" >
+    <%= link_to "参加率", students_graph_path(type: "atd") %>
+  </li>
+  <li role="presentation" class="<%= (@type == "aaa") ? "active" : "" %>" id="aaa" >
+    <%= link_to "参加率", students_graph_path(type: "aaa") %>
+  </li>
+</ul>
+
+<div class="text-center">
 <svg id="chart"></svg>
-
+</div>
 
 <style>
 .line {
@@ -33,99 +42,108 @@ var chart = d3.select("#chart")
   .append('g')
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-
-d3.json("/students/data.json", function (jsonData) {
-  // console.log(jsonData);
-
-  var students = jsonData
-    .map(function (classroom) {
-      return classroom.students;
-    })
-    .reduce(function(a, b) { // flatten
-      return a.concat(b);
-    })
-
-  var attendedStudents = students
-    .filter(function (student) { // .attended?
-      return student.attended_at != null;
-    })
-    .map(function (student) { // coerce attended_at into Date
-      student.attended_at = new Date(student.attended_at)
-      return student
-    })
-    .sort(function (a, b) { // sort_by .attended_at
-      return a.attended_at - b.attended_at;
-    })
-    .map(function (student, index) {
-      student.accum = index + 1;
-      return student;
-    })
-
-  var x = d3.scaleTime()
-    .domain([
-      attendedStudents[0].attended_at,
-      attendedStudents[attendedStudents.length-1].attended_at
-    ])
-    .range([0, width])
-
-  var y = d3.scaleLinear()
-    .domain([0, students.length])
-    .range([height, 0])
-
-  // define the line
-  var attendanceRate = d3.line()
-    .x(function (datum) {
-      return x(datum.attended_at)
-    })
-    .y(function (datum) {
-      return y(datum.accum)
-    })
-
-  // draw line graph
-  chart.selectAll("path.line")
-    .data([attendedStudents])
-    .enter().append("path")
-      .attr('class', "line")
-      .attr('d', attendanceRate)
-
-  // axis
-  chart.append("g")
-    .call(d3.axisLeft(y))
-  chart.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
-
-
-  // --- view helper ---
-
-  var focus = chart.append("g")
-    .attr("class", "focus")
-
-  focus.append("circle")
-    .attr("r", 4.5)
-
-  focus.append("text")
-    .attr("x", 9)
-    .attr("dy", ".35em")
-
-  chart.append("rect")
-    .attr("class", "overlay")
-    .attr("width", width)
-    .attr("height", height)
-    .on("mouseover", function () { focus.style("display", "inherit"); })
-    .on("mouseout",  function () { focus.style("display", "none"); })
-    .on("mousemove", function () {
-      var x0 = x.invert(d3.mouse(this)[0]);
-      var bisect = d3.bisector(function(d) { return d.attended_at; }).right
-      var i = bisect(attendedStudents, new Date(x0));
-
-      var d0 = attendedStudents[i - 1] || attendedStudents[i];
-      var d1 = attendedStudents[i];
-      var d = new Date(x0) - d0.attended_at > d1.attended_at - new Date(x0) ? d1 : d0;
-
-      focus.attr("transform", "translate(" + x(d.attended_at) + "," + y(d.accum) + ")");
-      focus.select("text").text(function () { return Math.round(d.accum * 1000 / students.length) / 10 + "%" });
-    });
+$(document).ready(function() {
+  atd();
 })
+
+$('#atd').on('click', function() {
+  atd();
+})
+
+function atd() {
+  d3.json("/students/data.json", function (jsonData) {
+    // console.log(jsonData);
+
+    var students = jsonData
+      .map(function (classroom) {
+        return classroom.students;
+      })
+      .reduce(function(a, b) { // flatten
+        return a.concat(b);
+      })
+
+    var attendedStudents = students
+      .filter(function (student) { // .attended?
+        return student.attended_at != null;
+      })
+      .map(function (student) { // coerce attended_at into Date
+        student.attended_at = new Date(student.attended_at)
+        return student
+      })
+      .sort(function (a, b) { // sort_by .attended_at
+        return a.attended_at - b.attended_at;
+      })
+      .map(function (student, index) {
+        student.accum = index + 1;
+        return student;
+      })
+
+    var x = d3.scaleTime()
+      .domain([
+        attendedStudents[0].attended_at,
+        attendedStudents[attendedStudents.length-1].attended_at
+      ])
+      .range([0, width])
+
+    var y = d3.scaleLinear()
+      .domain([0, students.length])
+      .range([height, 0])
+
+    // define the line
+    var attendanceRate = d3.line()
+      .x(function (datum) {
+        return x(datum.attended_at)
+      })
+      .y(function (datum) {
+        return y(datum.accum)
+      })
+
+    // draw line graph
+    chart.selectAll("path.line")
+      .data([attendedStudents])
+      .enter().append("path")
+        .attr('class', "line")
+        .attr('d', attendanceRate)
+
+    // axis
+    chart.append("g")
+      .call(d3.axisLeft(y))
+    chart.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+
+    // --- view helper ---
+
+    var focus = chart.append("g")
+      .attr("class", "focus")
+
+    focus.append("circle")
+      .attr("r", 4.5)
+
+    focus.append("text")
+      .attr("x", 9)
+      .attr("dy", ".35em")
+
+    chart.append("rect")
+      .attr("class", "overlay")
+      .attr("width", width)
+      .attr("height", height)
+      .on("mouseover", function () { focus.style("display", "inherit"); })
+      .on("mouseout",  function () { focus.style("display", "none"); })
+      .on("mousemove", function () {
+        var x0 = x.invert(d3.mouse(this)[0]);
+        var bisect = d3.bisector(function(d) { return d.attended_at; }).right
+        var i = bisect(attendedStudents, new Date(x0));
+
+        var d0 = attendedStudents[i - 1] || attendedStudents[i];
+        var d1 = attendedStudents[i];
+        var d = new Date(x0) - d0.attended_at > d1.attended_at - new Date(x0) ? d1 : d0;
+
+        focus.attr("transform", "translate(" + x(d.attended_at) + "," + y(d.accum) + ")");
+        focus.select("text").text(function () { return Math.round(d.accum * 1000 / students.length) / 10 + "%" });
+      });
+  })
+}
 
 </script>
