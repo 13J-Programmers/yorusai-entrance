@@ -8,6 +8,6 @@ database:
   pre:
     - mv config/database.yml.ci config/database.yml
   override:
-    - rails db:migrate
-    - rails admins:add_admin
-    - rails db:seed
+    - bundle exec rake db:migrate
+    - bundle exec rake admins:add_admin
+    - bundle exec rake db:seed
