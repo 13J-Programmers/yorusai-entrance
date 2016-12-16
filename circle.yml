@@ -1,0 +1,13 @@
+machine:
+  ruby:
+    version: 2.3.1
+  timezone:
+    Asia/Tokyo
+
+database:
+  pre:
+    - mv config/database.yml.ci config/database.yml
+  override:
+    - rake db:migrate RAILS_ENV=test
+    - rake admins:add_admin
+    - rake db:seed
