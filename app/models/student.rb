@@ -15,7 +15,7 @@ class Student < ApplicationRecord
   validates :student_id,
     presence: true,
     uniqueness: true,
-    format: { with: /\A[0-9][0-9][1-5][0-9][0-9]\z/ }
+    format: { with: /\A[0-9][0-9][1-8][0-9][0-9]\z/ }
 
   #
   # culculate student_id's first 2 digit from grade
