@@ -71,15 +71,19 @@ class StudentsController < ApplicationController
     end
 
     n = 0;
-    CSV.foreach(params[:file].path, headers: true) do |row|
-      classroom = Classroom.find_by(classname: row["classname"], grade: row["grade"])
-      if classroom.nil?
-        flash[:danger] = "存在しないクラスが含まれます。学年:#{row['grade']} クラス:#{row['classname']}"
-      else
-        import(row["student_id"], classroom.id) && n += 1
+    begin
+      CSV.foreach(params[:file].path, headers: true) do |row|
+        classroom = Classroom.find_by(classname: row["classname"], grade: row["grade"])
+        if classroom.nil?
+          flash[:danger] = "存在しないクラスが含まれます。学年:#{row['grade']} クラス:#{row['classname']}"
+        else
+          import(row["student_id"], classroom.id) && n += 1
+        end
       end
+      flash[:success] = "#{n}件のデータを登録しました。"
+    rescue => e
+      flash[:danger] = "エラー: #{e.message}"
     end
-    flash[:success] = "#{n}件のデータを登録しました。"
     redirect_to current_admin
   end
 
