@@ -9,7 +9,7 @@ class StudentsController < ApplicationController
 
     @classrooms = Classroom.where(grade: @grade)
     @students = @classrooms.map do |classroom|
-      classroom.students.to_a.sort_by(&:student_id)
+      classroom.students.order(:student_id).to_a
     end
   end
 
