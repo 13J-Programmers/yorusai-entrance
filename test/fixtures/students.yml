@@ -1,27 +1,46 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+<%
+current_year = Time.now.year.to_s[2..3].to_i
+grade1_digit = current_year
+grade2_digit = current_year - 1
+grade3_digit = current_year - 2
+grade4_digit = current_year - 3
+grade5_digit = current_year - 4
+%>
+
 # grade 1..2
-<% (15..16).each do |digit| %>
-<%   (1..5).each do |sub| %>
-<%     (1..rand(35..40)).each do |num| %>
-<%       student_id = sprintf("%02d%1d%02d", digit, sub, num) %>
+<%
+(grade2_digit..grade1_digit).each do |digit|
+  (1..5).each do |sub|
+    (1..rand(35..40)).each do |num|
+      student_id = sprintf("%02d%1d%02d", digit, sub, num)
+      classroom = "#{digit}#{sub}"
+%>
 student_<%= student_id %>:
   student_id: <%= student_id %>
-  classroom: classroom_<%= "#{digit}#{sub}" %>
-<%     end %>
-<%   end %>
-<% end %>
+  classroom: classroom_<%= classroom %>
+<%
+    end
+  end
+end
+%>
 
 # grade 3..5
-<% (12..14).each do |digit| %>
-<%   (1..5).each do |sub| %>
-<%     dept = %w(M E S J C)[sub-1] %>
-<%     dept = %w(M E S J C)[rand(5)] if rand(100) == 0 %>
-<%     (1..rand(35..40)).each do |num| %>
-<%       student_id = sprintf("%02d%1d%02d", digit, sub, num) %>
+<%
+(grade5_digit..grade3_digit).each do |digit|
+  (1..5).each do |sub|
+    dept = %w(M E S J C)[sub-1]
+    dept = %w(M E S J C)[rand(5)] if rand(100) == 0
+    (1..rand(35..40)).each do |num|
+      student_id = sprintf("%02d%1d%02d", digit, sub, num)
+      classroom = "#{digit}#{dept}"
+%>
 student_<%= student_id %>:
   student_id: <%= student_id %>
-  classroom: classroom_<%= "#{digit}#{sub}" %>
-<%     end %>
-<%   end %>
-<% end %>
+  classroom: classroom_<%= classroom %>
+<%
+    end
+  end
+end
+%>

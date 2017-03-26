@@ -27,8 +27,15 @@ Classroom.create(grade: 6, classname: "専攻科")
 
 # --- create students ---
 
+current_year = Time.now.year.to_s[2..3].to_i
+grade1_digit = current_year
+grade2_digit = current_year - 1
+grade3_digit = current_year - 2
+grade4_digit = current_year - 3
+grade5_digit = current_year - 4
+
 # grade 1..2
-(15..16).each do |digit|
+(grade2_digit..grade1_digit).each do |digit|
   (1..5).each do |sub|
     classroom = Classroom.find_by(grade: Student.digit_to_grade(digit), classname: sub)
     (1..rand(35..40)).each do |num|
@@ -39,7 +46,7 @@ Classroom.create(grade: 6, classname: "専攻科")
 end
 
 # grade 3..5
-(12..14).each do |digit|
+(grade5_digit..grade3_digit).each do |digit|
   (1..5).each do |sub|
     dept = %w(M E S J C)[sub-1]
     classroom = Classroom.find_by(grade: Student.digit_to_grade(digit), classname: dept)
