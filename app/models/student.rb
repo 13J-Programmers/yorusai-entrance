@@ -24,6 +24,9 @@ class Student < ApplicationRecord
     raise "this system is able to use in 2005-2099." unless Time.now.year.between?(2005, 2099)
     current_year = Time.now.year.to_s[2..3].to_i
     current_year - grade + 1
+
+    # last_2_letters = Date.today.year.to_s[2..3]
+    # (Date.new(2016, 4) - (grade * 365).days + 9.months).year.to_s[2..3]
   end
 
   #
@@ -34,5 +37,10 @@ class Student < ApplicationRecord
     entered_year = student_id.to_s[0..1].to_i
     current_year = Time.now.year.to_s[2..3].to_i
     current_year - entered_year + 1
+
+    # first_2_letters = student_id.to_s[0..1]
+    # entered_date = Date.new(2000 + first_2_letters.to_i, 4)
+    # current_date = Date.today
+    # ((current_date - entered_date) / 365).ceil
   end
 end
