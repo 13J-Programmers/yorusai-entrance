@@ -14,7 +14,7 @@ class StudentsController < ApplicationController
   end
 
   def data
-    @classrooms = Classroom.all
+    @classrooms = Classroom.includes(:students).all
     render json: @classrooms,
       :only => [:grade, :classname],
       :include => {students: {only: [:student_id, :attended_at, :elected_at]}}
