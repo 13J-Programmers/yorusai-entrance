@@ -25,8 +25,7 @@ class Student < ApplicationRecord
     current_year = Time.now.year.to_s[2..3].to_i
     current_year - grade + 1
 
-    # last_2_letters = Date.today.year.to_s[2..3]
-    # (Date.new(2016, 4) - (grade * 365).days + 9.months).year.to_s[2..3]
+    # (Date.today - grade.years + 9.months).year.to_s[2..3]
   end
 
   #
