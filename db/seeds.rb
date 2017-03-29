@@ -27,12 +27,11 @@ Classroom.create(grade: 6, classname: "専攻科")
 
 # --- create students ---
 
-current_year = Time.now.year.to_s[2..3].to_i
-grade1_digit = current_year
-grade2_digit = current_year - 1
-grade3_digit = current_year - 2
-grade4_digit = current_year - 3
-grade5_digit = current_year - 4
+grade1_digit = Student.grade_to_digit(1)
+grade2_digit = Student.grade_to_digit(2)
+grade3_digit = Student.grade_to_digit(3)
+grade4_digit = Student.grade_to_digit(4)
+grade5_digit = Student.grade_to_digit(5)
 
 # grade 1..2
 (grade2_digit..grade1_digit).each do |digit|
