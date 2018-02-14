@@ -2,6 +2,9 @@ class Classroom < ApplicationRecord
   has_many :students
 
   validates :grade, presence: true
+  validates :grade, numericality: {
+              only_integer: true, greater_than: 0, less_than: 7
+            }
   validates :classname, presence: true
 
   def abbr
@@ -16,8 +19,6 @@ class Classroom < ApplicationRecord
       "#{grade}#{classname}" # => 3M 3E ...
     when 6
       "#{classname}" # => 専攻科
-    else
-      raise 'Classroom column "grade" is expected to be integer and be between 1 and 6'
     end
   end
 

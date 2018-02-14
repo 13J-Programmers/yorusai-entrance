@@ -8,9 +8,9 @@ class ClassroomsController < ApplicationController
   def create
     @classroom = Classroom.new(classroom_params)
     if @classroom.save
-      flash[:success] = "Successfully created!"
+      flash[:success] = "保存しました。"
     else
-      flash[:danger] = "An error has been occured!"
+      flash[:danger] = "値が不正です。"
     end
     redirect_back(fallback_location: root_path)
   end
